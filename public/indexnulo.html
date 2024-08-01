@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="folder-svgrepo-com.svg" type="image/png">
+    <title>Portfólio de Christian Felipe</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Christian Felipe</div>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <ul class="nav-links">
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#cursos">Cursos</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+    <script>
+        function toggleMenu() {
+            document.querySelector('nav').classList.toggle('active');
+        }
+    </script>
+    
+    <main>
+        <section id="hero">
+            <div class="stars"></div>
+            <div class="stars2"></div>
+            <div class="stars3"></div>
+            <div class="hero-content">
+                <img src="perfil2.jpg" alt="Foto de Christian Felipe" class="perfil">
+                <h1>Christian Felipe</h1>
+                <p>Desenvolvedor de Sistemas & Pedagogo</p>
+            </div>
+        </section>
+        <section id="sobre">
+            <h2>Sobre Mim</h2>
+            <p>Olá! Eu sou Christian Felipe, um apaixonado por tecnologia e educação. Possuo formação em Análise e Desenvolvimento de Sistemas e Pedagogia. Estou sempre em busca de novos desafios e oportunidades para crescer profissionalmente.</p>
+        </section>
+        <section id="cursos">
+            <h2>Cursos</h2>
+            <ul>
+                <li>Análise e Desenvolvimento de Sistemas (ATUAL)</li>
+                <li>Pedagogia (ATUAL)</li>
+            </ul>
+        </section>
+        <section id="contato">
+            <h2>Contato</h2>
+            <p><strong>📞Telefone:</strong> <a href="tel:+559889138217">98 8913-8217</a></p>
+            <p><strong>💬Whatsapp:</strong> <a href="https://wa.me/5598989138217">Conversar no Whatsapp</a> </p>
+            <p><strong>📧Email:</strong> <a href="mailto:christian.felipe18@gmail.com">christian.felipe18@gmail.com</a></p>
+
+            <p><strong></strong> <a href="https://wa.me/5598989138217">Conversar no Whatsapp</a> </p>
+            <p><strong>📱Instagram:</strong> <a href="https://www.instagram.com/christian.felipesf/">Ir para o instagram</a> </p>
+            <p><strong>📍Localização:</strong> Santa Rita (MA)</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Christian Felipe. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
