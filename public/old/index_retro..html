@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/profilepic.png" type="image/png">
+    <title>💾Links de Christian Felipe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <meta property="og:title" content="💾 Portfólio de Christian Felipe!" />
+    <meta property="og:description" content="💻 Desenvolvimento de sites e bots automatizados (frontend e backend), 🎮 criação de programas e jogos 2D/3D, 🎨 design 3D avançado e arquitetura fotorealista, 🎓 graduação em Análise e Desenvolvimento de Sistemas (em andamento) e 📚 graduação em Pedagogia." />
+    <meta property="og:image" content="https://sobre-christian.web.app/ppicSmall.png" />
+    <meta property="og:url" content="https://sobre-christian.web.app/" />
+    <meta property="og:type" content="website" />
+    <style>
+        /* Variáveis CSS para cores */
+        :root {
+            --primary-color: #00d1b2; /* Verde água */
+            --secondary-color: #1a1a2e; /* Azul escuro quase preto */
+            --accent-color: #e94560; /* Vermelho vibrante */
+            --text-color-light: #f5f5f5; /* Branco suave */
+            --text-color-dark: #121212; /* Preto */
+            --button-hover-bg: #ffffff; /* Branco para hover */
+            --button-hover-text: #00d1b2; /* Verde água para hover */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif; /* Fonte principal para o corpo */
+            background-color: var(--secondary-color); /* Fundo azul escuro */
+            color: var(--text-color-light); /* Texto claro */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden; /* Evita rolagem horizontal indesejada */
+            background-image: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); /* Gradiente sutil */
+        }
+
+        /* Estilo para a tela de carregamento */
+        #loading-screen {
+            position: fixed; /* Fixa a tela de carregamento na viewport */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--secondary-color); /* Cor de fundo da tela de carregamento */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Garante que fique acima de todo o conteúdo */
+            transition: opacity 0.5s ease-out; /* Transição suave ao desaparecer */
+            opacity: 1; /* Inicialmente visível */
+        }
+
+        #loading-screen.hidden {
+            opacity: 0; /* Torna-se invisível */
+            pointer-events: none; /* Desativa interações com a tela de carregamento */
+        }
+
+        /* Estilo para o spinner de carregamento (Font Awesome) */
+        .loading-spinner {
+            font-size: 3em;
+            color: var(--primary-color);
+            animation: spin 1s linear infinite; /* Animação de rotação */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .container {
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.05); /* Fundo translúcido */
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Sombra mais pronunciada */
+            backdrop-filter: blur(5px); /* Efeito de desfoque */
+            -webkit-backdrop-filter: blur(5px); /* Compatibilidade Safari */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
+            position: relative; /* Necessário para que o z-index funcione */
+            z-index: 1; /* Garante que o container fique acima de qualquer elemento de fundo */
+        }
+
+        .profile-img {
+            border-radius: 50%;
+            border: 5px solid var(--primary-color); /* Borda colorida */
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 0 15px rgba(0, 209, 178, 0.6); /* Brilho na imagem */
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05); /* Apenas zoom, sem rotação */
+            box-shadow: 0 0 25px rgba(0, 209, 178, 0.9), 0 0 40px rgba(0, 209, 178, 0.4); /* Brilho mais intenso */
+        }
+
+        .title, .subtitle {
+            font-family: 'Space Mono', monospace; /* Fonte para títulos */
+            color: var(--text-color-light) !important; /* Força a cor clara */
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Sombra no texto */
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+
+        .buttons {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Espaçamento entre os botões */
+        }
+
+        .button.is-linktree, .back-button {
+            /* Propriedades para uniformizar o tamanho dos botões */
+            width: 100%; /* Ocupa a largura total disponível */
+            min-height: 55px; /* Altura mínima para uniformidade */
+            display: flex; /* Garante que o conteúdo esteja centralizado */
+            align-items: center; /* Centraliza verticalmente */
+            justify-content: center; /* Centraliza horizontalmente */
+
+            font-weight: 700;
+            border-radius: 10px; /* Cantos mais arredondados */
+            padding: 15px 20px; /* Padding consistente */
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            text-transform: uppercase; /* Texto em maiúsculas */
+            letter-spacing: 1px; /* Espaçamento entre letras */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Sombra padrão */
+        }
+
+        .button.is-linktree {
+            background-color: var(--primary-color);
+            color: var(--text-color-dark);
+        }
+
+        .button.is-linktree:hover {
+            background-color: var(--button-hover-bg);
+            color: var(--button-hover-text);
+            transform: translateY(-5px); /* Leve elevação */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Sombra mais intensa no hover */
+            border: 2px solid var(--primary-color); /* Borda no hover */
+        }
+
+        .button.is-linktree .icon, .back-button .icon {
+            margin-right: 12px;
+            font-size: 1.2em;
+        }
+
+        .back-button {
+            background-color: var(--accent-color); /* Cor de destaque para o botão principal */
+            color: var(--text-color-light);
+        }
+
+        .back-button:hover {
+            background-color: var(--button-hover-bg);
+            color: var(--accent-color);
+            transform: translateY(-5px); /* Leve elevação */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--accent-color);
+        }
+
+        .book-section {
+            margin-top: 40px;
+            padding: 25px;
+            background-color: rgba(255, 255, 255, 0.08); /* Fundo translúcido mais escuro */
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .book-section .title {
+            color: var(--text-color-light) !important;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+
+            .profile-img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .title {
+                font-size: 2em;
+            }
+
+            .subtitle {
+                font-size: 1em;
+            }
+
+            .button.is-linktree, .back-button {
+                font-size: 0.9em;
+                padding: 12px 15px;
+                min-height: 50px; /* Ajuste para telas menores */
+            }
+
+            .button.is-linktree .icon, .back-button .icon {
+                font-size: 1em;
+                margin-right: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+
+            .title {
+                font-size: 1.8em;
+            }
+
+            .subtitle {
+                font-size: 0.9em;
+            }
+
+            .buttons {
+                gap: 10px;
+            }
+
+            .button.is-linktree, .back-button {
+                min-height: 45px; /* Ajuste para telas muito pequenas */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading-screen">
+        <i class="fas fa-spinner loading-spinner"></i>
+    </div>
+
+    <div class="container">
+        <figure class="image is-128x128 is-inline-block">
+            <img src="perfil2.jpg" alt="Foto de Christian Felipe" class="is-rounded profile-img">
+        </figure>
+        <h1 class="title">Christian Felipe</h1>
+        <p class="subtitle">Desenvolvedor de Sistemas & Pedagogo</p>
+        <div class="buttons">
+            <a href="tudo.html" class="button back-button">
+                <span class="icon">
+                    <i class="fas fa-file-alt"></i>
+                </span>
+                <span>Ir ao Portfólio</span>
+            </a>
+            <a href="https://www.instagram.com/christian.felipesf/" target="_blank" class="button is-linktree">
+                <span class="icon">
+                    <i class="fab fa-instagram"></i>
+                </span>
+                <span>Instagram</span>
+            </a>
+            <a href="https://github.com/edergames29" target="_blank" class="button is-linktree">
+                <span class="icon">
+                    <i class="fab fa-github"></i>
+                </span>
+                <span>GitHub</span>
+            </a>
+            <a href="mailto:christian.felipe18@gmail.com" target="_blank" class="button is-linktree">
+                <span class="icon">
+                    <i class="fas fa-envelope"></i>
+                </span>
+                <span>Email</span>
+            </a>
+            <a href="https://wa.me/5598989138217" target="_blank" class="button is-linktree">
+                <span class="icon">
+                    <i class="fab fa-whatsapp"></i>
+                </span>
+                <span>WhatsApp</span>
+            </a>
+            <a href="curriculo.html" class="button is-linktree">
+                <span class="icon">
+                    <i class="fas fa-image"></i>
+                </span>
+                <span>Currículo</span>
+            </a>
+        </div>
+    
+        <div class="book-section">
+            <h2 class="title">Meu Livro: Água Infinita</h2>
+            <a href="https://a.co/d/eKLy48j" target="_blank" class="button is-linktree">
+                <span class="icon">
+                    <i class="fas fa-book"></i>
+                </span>
+                <span>Comprar Água Infinita</span>
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        // Esconde a tela de carregamento quando a página estiver totalmente carregada
+        window.addEventListener('load', function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            loadingScreen.classList.add('hidden'); // Adiciona a classe 'hidden' para iniciar a transição
+            // Opcional: remover o elemento do DOM após a transição para liberar recursos
+            loadingScreen.addEventListener('transitionend', function() {
+                loadingScreen.remove();
+            });
+        });
+    </script>
+</body>
+</html>

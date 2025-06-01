@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/profilepic.png" type="image/png">
+    <title>💾 Portfólio de Christian Felipe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="stylesb.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- Open Graph Meta Tags para WhatsApp e Redes Sociais -->
+    <meta property="og:title" content="💾 Portfólio de Christian Felipe!" />
+    <meta property="og:description" content="💻 Desenvolvimento de sites e bots automatizados (frontend e backend), 🎮 criação de programas e jogos 2D/3D, 🎨 design 3D avançado e arquitetura fotorealista, 🎓 graduação em Análise e Desenvolvimento de Sistemas (em andamento) e 📚 graduação em Pedagogia." />
+    <meta property="og:image" content="https://sobre-christian.web.app/ppicSmall.png" />
+    <meta property="og:url" content="https://sobre-christian.web.app/" />
+    <meta property="og:type" content="website" />
+
+
+    <style>
+
+        .profile-img {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .animate-text {
+            animation-duration: 2s;
+        }
+    </style>
+</head>
+<body class="has-background-dark has-text-light">
+    <header>
+        <nav class="navbar is-dark">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="#">Christian Felipe</a>
+                <div class="navbar-burger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="#sobre">Sobre</a>
+                    <a class="navbar-item" href="#cursos">Cursos</a>
+                    <a class="navbar-item" href="#contato">Contato</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <script>
+        function toggleMenu() {
+            document.querySelector('.navbar-menu').classList.toggle('is-active');
+        }
+    </script>
+    
+    <main>
+        <section id="hero" class="hero is-fullheight is-dark is-bold">
+            <div class="hero-body" style="background: url('bac.jpg') no-repeat center center/cover;">
+                <div class="container has-text-centered">
+                    <a href="https://www.instagram.com/christian.felipesf/" target="_blank">
+                        <figure class="image is-128x128 is-inline-block">
+                            <img src="perfil2.jpg" alt="Foto de Christian Felipe" class="is-rounded profile-img wow animate__fadeInDown" data-wow-duration="2s">
+                        </figure>
+                    </a>
+                    <h1 class="title has-text-dark animate-text wow animate__fadeInDown" data-wow-duration="2s">Christian Felipe</h1>
+                    <p class="subtitle has-text-dark animate-text wow animate__fadeInUp" data-wow-duration="2s">Desenvolvedor de Sistemas & Pedagogo</p>
+                </div>
+            </div>
+        </section>
+        <section id="sobre" class="section wow animate__fadeInUp" data-wow-duration="2s">
+            <div class="container">
+                <h2 class="title has-text-light">Sobre Mim</h2>
+                <p class="has-text-light">Olá! Eu sou Christian Felipe, um apaixonado por tecnologia e educação. Possuo formação em Análise e Desenvolvimento de Sistemas e Pedagogia. Estou sempre em busca de novos desafios e oportunidades para crescer profissionalmente.</p>
+            </div>
+        </section>
+        <section id="cursos" class="section wow animate__fadeInUp" data-wow-duration="2s">
+            <div class="container">
+                <h2 class="title has-text-light">Cursos e Habilidades</h2>
+                <ul class="skill-list">
+                    <li class="wow animate__fadeInUp" data-wow-duration="2s">Desenvolvimento completo de sites e bots automatizados, tanto para frontend quanto para backend.</li>
+                    <li class="wow animate__fadeInUp" data-wow-duration="2s">Criação de programas e jogos em 2D e 3D.</li>
+                    <li class="wow animate__fadeInUp" data-wow-duration="2s">Design 3D avançado e arquitetura fotorealista.</li>
+                    <li class="wow animate__fadeInUp" data-wow-duration="2s">Graduação em Análise e Desenvolvimento de Sistemas (atual).</li>
+                    <li class="wow animate__fadeInUp" data-wow-duration="2s">Graduação em Pedagogia (atual).</li>
+                </ul>
+            </div>
+        </section>
+        <section id="portfolio" class="section wow animate__fadeInUp" data-wow-duration="2s">
+            <div class="container">
+                <h2 class="title has-text-light">Portfólio</h2>
+                <p class="has-text-light">Confira meus projetos, jogos e designs 3D.</p>
+                <a class="button is-primary" href="portfolio.html">Ver Portfólio</a>
+            </div>
+        </section>
+        <section id="contato" class="section wow animate__fadeInUp" data-wow-duration="2s">
+            <div class="container">
+                <h2 class="title has-text-light">Contato</h2>
+                <div class="content">
+                    <p class="wow animate__fadeInUp" data-wow-duration="2s"><strong><i class="fas fa-phone"></i> Telefone:</strong> <a class="has-text-primary" href="tel:+559889138217">98 8913-8217</a></p>
+                    <p class="wow animate__fadeInUp" data-wow-duration="2s"><strong><i class="fab fa-whatsapp"></i> Whatsapp:</strong> <a class="has-text-primary" href="https://wa.me/5598989138217">Conversar no Whatsapp</a></p>
+                    <p class="wow animate__fadeInUp" data-wow-duration="2s"><strong><i class="fas fa-envelope"></i> Email:</strong> <a class="has-text-primary" href="mailto:christian.felipe18@gmail.com">christian.felipe18@gmail.com</a></p>
+                    <p class="wow animate__fadeInUp" data-wow-duration="2s"><strong><i class="fab fa-instagram"></i> Instagram:</strong> <a class="has-text-primary" href="https://www.instagram.com/christian.felipesf/">Ir para o Instagram</a></p>
+                    <p class="wow animate__fadeInUp" data-wow-duration="2s"><strong><i class="fab fa-github"></i> GitHub:</strong> <a class="has-text-primary" href="https://github.com/edergames29">Ver perfil no GitHub</a></p>
+                    <p class="wow animate__fadeInUp" data-wow-duration="2s"><strong><i class="fas fa-map-marker-alt"></i> Localização:</strong> Santa Rita (MA)</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer has-background-dark has-text-white-ter">
+        <div class="content has-text-centered">
+            <p>&copy; 2024 Christian Felipe. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+</body>
+</html>

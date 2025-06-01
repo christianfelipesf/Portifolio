@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/profilepic.png" type="image/png">
-    <title>💾 Portfólio de Christian Felipe</title>
+    <title>Portfólio de Christian Felipe</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -105,7 +105,7 @@
             padding: 40px;
             margin-bottom: 40px;
             width: 100%;
-            max-width: 800px; /* Largura maior para o portfólio */
+            max-width: 900px; /* Largura maior para o portfólio */
             box-sizing: border-box;
             text-align: center; /* Centraliza o conteúdo das seções */
         }
@@ -126,29 +126,55 @@
             margin-bottom: 20px;
         }
 
-        /* Estilo para listas de habilidades */
-        .skill-list {
-            list-style: none; /* Remove marcadores de lista padrão */
-            padding: 0;
-            margin-top: 20px;
-        }
-
-        .skill-list li {
-            background-color: #f1f3f4;
-            border-radius: 8px;
-            padding: 12px 20px;
-            margin-bottom: 10px;
+        /* Estilo para os cards de projeto */
+        .project-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left; /* Alinha o texto dentro do card à esquerda */
+            height: 100%; /* Garante que os cards tenham a mesma altura em um grid */
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 500;
-            color: #3c4043;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            flex-direction: column;
         }
 
-        .skill-list li i {
-            margin-right: 10px;
-            color: #1a73e8; /* Cor do ícone */
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-card .card-image {
+            width: 100%;
+            height: 200px; /* Altura fixa para a imagem */
+            overflow: hidden;
+        }
+
+        .project-card .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Garante que a imagem cubra o espaço sem distorção */
+        }
+
+        .project-card .card-content {
+            padding: 20px;
+            flex-grow: 1; /* Permite que o conteúdo cresça para preencher o espaço */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-card .card-title {
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: #202124;
+            margin-bottom: 8px;
+        }
+
+        .project-card .card-subtitle {
+            font-size: 0.95rem;
+            color: #5f6368;
+            margin-bottom: 16px;
         }
 
         /* Estilo para os botões (consistente com index.html) */
@@ -177,13 +203,13 @@
             color: #5f6368;
         }
 
-        .button-portfolio {
+        .button-primary {
             background-color: #1a73e8;
             color: #ffffff;
             border: none;
         }
 
-        .button-portfolio:hover {
+        .button-primary:hover {
             background-color: #185abc;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             transform: translateY(-2px);
@@ -244,9 +270,8 @@
             .section-paragraph {
                 font-size: 1rem;
             }
-            .skill-list li {
-                padding: 10px 15px;
-                font-size: 0.9rem;
+            .project-card .card-image {
+                height: 150px; /* Altura menor para imagem em mobile */
             }
         }
 
@@ -275,64 +300,126 @@
             <span></span>
         </div>
         <nav class="nav-links hidden md:flex md:space-x-4">
-            <a class="nav-link" href="#sobre">Sobre</a>
-            <a class="nav-link" href="#cursos">Cursos</a>
-            <a class="nav-link" href="#contato">Contato</a>
+            <a class="nav-link" href="index.html">Início</a>
+            <a class="nav-link" href="tudo.html#sobre">Sobre</a>
+            <a class="nav-link" href="tudo.html#cursos">Cursos</a>
+            <a class="nav-link" href="tudo.html#contato">Contato</a>
         </nav>
     </header>
     
     <main class="flex flex-col items-center w-full p-5">
-        <section id="hero" class="section-container mt-10">
-            <figure class="w-32 h-32 mx-auto mb-6">
-                <img src="perfil2.jpg" alt="Foto de Christian Felipe" class="rounded-full profile-img">
-            </figure>
-            <h1 class="text-3xl font-semibold title-google">Christian Felipe</h1>
-            <p class="text-lg subtitle-google">Desenvolvedor de Sistemas & Pedagogo</p>
-            <a href="#contato" class="button-google button-portfolio">
-                <span class="mr-2">
-                    <i class="fas fa-envelope"></i>
-                </span>
-                <span>Entre em Contato</span>
-            </a>
-        </section>
+        <section id="meus-projetos" class="section-container mt-10">
+            <h2 class="section-title">Meus Projetos Online</h2>
+            <p class="section-paragraph">Links para meus projetos e repositórios online.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                <div class="project-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/E0E0E0/3C4043?text=Site+de+Jogos" alt="Imagem do Projeto: Site de Jogos">
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <p class="card-title">Meu site de jogos (2019)</p>
+                            <p class="card-subtitle">Um site desenvolvido em 2019 para hospedar e organizar meus jogos.</p>
+                        </div>
+                        <a href="https://christianfelipesf.github.io/botgerador/" target="_blank" class="button-google button-primary mt-4">
+                            <span class="mr-2"><i class="fas fa-external-link-alt"></i></span>
+                            <span>Ver Projeto</span>
+                        </a>
+                    </div>
+                </div>
 
-        <section id="sobre" class="section-container">
-            <h2 class="section-title">Sobre Mim</h2>
-            <p class="section-paragraph">Olá! Eu sou Christian Felipe, um apaixonado por tecnologia e educação. Possuo formação em Análise e Desenvolvimento de Sistemas e Pedagogia. Estou sempre em busca de novos desafios e oportunidades para crescer profissionalmente.</p>
-        </section>
+                <div class="project-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/E0E0E0/3C4043?text=GameAutolay" alt="Imagem do Projeto: GameAutolay">
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <p class="card-title">GameAutolay</p>
+                            <p class="card-subtitle">Ferramenta para backup automático de savegames offline.</p>
+                        </div>
+                        <a href="https://github.com/christianfelipesf/GameAutolay" target="_blank" class="button-google button-primary mt-4">
+                            <span class="mr-2"><i class="fab fa-github"></i></span>
+                            <span>Ver no GitHub</span>
+                        </a>
+                    </div>
+                </div>
 
-        <section id="cursos" class="section-container">
-            <h2 class="section-title">Cursos e Habilidades</h2>
-            <ul class="skill-list">
-                <li><i class="fas fa-code"></i> Desenvolvimento completo de sites e bots automatizados (frontend e backend).</li>
-                <li><i class="fas fa-gamepad"></i> Criação de programas e jogos em 2D e 3D.</li>
-                <li><i class="fas fa-cube"></i> Design 3D avançado e arquitetura fotorealista.</li>
-                <li><i class="fas fa-graduation-cap"></i> Graduação em Análise e Desenvolvimento de Sistemas (em andamento).</li>
-                <li><i class="fas fa-book-reader"></i> Graduação em Pedagogia (em andamento).</li>
-            </ul>
+                <div class="project-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/E0E0E0/3C4043?text=Rank+Nofap" alt="Imagem do Projeto: Rank Nofap September">
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <p class="card-title">Rank Nofap September</p>
+                            <p class="card-subtitle">Um site divertido criado para um meme específico.</p>
+                        </div>
+                        <a href="https://christianfelipesf.github.io/fpnovember/" target="_blank" class="button-google button-primary mt-4">
+                            <span class="mr-2"><i class="fas fa-external-link-alt"></i></span>
+                            <span>Ver Projeto</span>
+                        </a>
+                    </div>
+                </div>
+                </div>
         </section>
-
+        
         <section id="portfolio" class="section-container">
-            <h2 class="section-title">Portfólio</h2>
-            <p class="section-paragraph">Confira meus projetos, jogos e designs 3D.</p>
-            <a class="button-google button-portfolio" href="portifolio.html">
-                <span class="mr-2">
-                    <i class="fas fa-external-link-alt"></i>
-                </span>
-                <span>Ver Portfólio Completo</span>
-            </a>
-        </section>
+            <h2 class="section-title">Outros Projetos & Designs 3D</h2>
+            <p class="section-paragraph">Aqui estão alguns dos meus projetos e designs 3D.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                <div class="project-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/E0E0E0/3C4043?text=Design+3D+1" alt="Imagem do Design 3D 1">
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <p class="card-title">Design 3D: Sala Moderna</p>
+                            <p class="card-subtitle">Renderização de uma sala de estar com design moderno e iluminação realista.</p>
+                        </div>
+                        <a href="#" class="button-google mt-4">
+                            <span class="mr-2"><i class="fas fa-eye"></i></span>
+                            <span>Ver Detalhes</span>
+                        </a>
+                    </div>
+                </div>
 
-        <section id="contato" class="section-container">
-            <h2 class="section-title">Contato</h2>
-            <div class="flex flex-col items-center space-y-4">
-                <p class="section-paragraph flex items-center"><i class="fas fa-phone mr-3 text-blue-500"></i> <strong>Telefone:</strong> <a class="ml-2 text-blue-600 hover:underline" href="tel:+559889138217">98 8913-8217</a></p>
-                <p class="section-paragraph flex items-center"><i class="fab fa-whatsapp mr-3 text-green-500"></i> <strong>Whatsapp:</strong> <a class="ml-2 text-blue-600 hover:underline" href="https://wa.me/5598989138217">Conversar no Whatsapp</a></p>
-                <p class="section-paragraph flex items-center"><i class="fas fa-envelope mr-3 text-red-500"></i> <strong>Email:</strong> <a class="ml-2 text-blue-600 hover:underline" href="mailto:christian.felipe18@gmail.com">christian.felipe18@gmail.com</a></p>
-                <p class="section-paragraph flex items-center"><i class="fab fa-instagram mr-3 text-purple-500"></i> <strong>Instagram:</strong> <a class="ml-2 text-blue-600 hover:underline" href="https://www.instagram.com/christian.felipesf/">Ir para o Instagram</a></p>
-                <p class="section-paragraph flex items-center"><i class="fab fa-github mr-3 text-gray-700"></i> <strong>GitHub:</strong> <a class="ml-2 text-blue-600 hover:underline" href="https://github.com/edergames29">Ver perfil no GitHub</a></p>
-                <p class="section-paragraph flex items-center"><i class="fas fa-map-marker-alt mr-3 text-gray-500"></i> <strong>Localização:</strong> Santa Rita (MA)</p>
+                <div class="project-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/E0E0E0/3C4043?text=Game+Concept" alt="Imagem do Conceito de Jogo">
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <p class="card-title">Conceito de Jogo 2D</p>
+                            <p class="card-subtitle">Protótipo de um jogo de plataforma 2D com arte pixelada.</p>
+                        </div>
+                        <a href="#" class="button-google mt-4">
+                            <span class="mr-2"><i class="fas fa-eye"></i></span>
+                            <span>Ver Detalhes</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="card-image">
+                        <img src="https://placehold.co/600x400/E0E0E0/3C4043?text=Arquitetura" alt="Imagem de Arquitetura Fotorealista">
+                    </div>
+                    <div class="card-content">
+                        <div>
+                            <p class="card-title">Visualização Arquitetônica</p>
+                            <p class="card-subtitle">Projeto de visualização fotorealista de uma fachada de edifício.</p>
+                        </div>
+                        <a href="#" class="button-google mt-4">
+                            <span class="mr-2"><i class="fas fa-eye"></i></span>
+                            <span>Ver Detalhes</span>
+                        </a>
+                    </div>
+                </div>
             </div>
+            <a class="button-google button-primary mt-10" href="tudo.html#contato">
+                <span class="mr-2">
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+                <span>Voltar para a Página Principal</span>
+            </a>
         </section>
     </main>
 

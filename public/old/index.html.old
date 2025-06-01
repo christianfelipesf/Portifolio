@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/profilepic.png" type="image/png">
+    <title>💾Links de Christian Felipe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="stylesb.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- Open Graph Meta Tags para WhatsApp e Redes Sociais -->
+    <meta property="og:title" content="💾 Portfólio de Christian Felipe!" />
+    <meta property="og:description" content="💻 Desenvolvimento de sites e bots automatizados (frontend e backend), 🎮 criação de programas e jogos 2D/3D, 🎨 design 3D avançado e arquitetura fotorealista, 🎓 graduação em Análise e Desenvolvimento de Sistemas (em andamento) e 📚 graduação em Pedagogia." />
+    <meta property="og:image" content="https://sobre-christian.web.app/ppicSmall.png" />
+    <meta property="og:url" content="https://sobre-christian.web.app/" />
+    <meta property="og:type" content="website" />
+    <style>
+       body {
+    font-family: 'Roboto', sans-serif;
+    background-image: url('bac2.jpg');
+    background-size: cover; /* Faz a imagem cobrir toda a área */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Evita a repetição da imagem */
+    color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Faz com que o body ocupe pelo menos 100% da altura da viewport */
+    margin: 0;
+}
+
+
+        .profile-img {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .animate-text {
+            animation-duration: 2s;
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .button.is-linktree {
+            background-color: #00d1b2;
+            color: #121212;
+            width: 100%;
+            margin-bottom: 15px;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .button.is-linktree:hover {
+            background-color: #ffffff;
+            color: #00d1b2;
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adiciona sombra */
+        }
+
+        .button.is-linktree .icon {
+            margin-right: 10px;
+        }
+
+        .back-button {
+            width: 100%;
+            /*background-color: #3273dc;*/
+            background-color: #29524B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f5f5f5;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Adiciona transição */
+        }
+
+        .back-button:hover {
+            background-color: #ffffff;
+            color: #3273dc;
+            transform: translateY(-5px); /* Adiciona o efeito de "popup" */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adiciona sombra */
+        }
+
+        title {
+            color: #121212;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <figure class="image is-128x128 is-inline-block">
+            <img src="perfil2.jpg" alt="Foto de Christian Felipe" class="is-rounded profile-img wow animate__fadeInDown" data-wow-duration="2s">
+        </figure>
+        <h1 class="title has-text-grey animate-text wow animate__fadeInDown" data-wow-duration="2s">Christian Felipe</h1>
+        <p class="subtitle has-text-grey animate-text wow animate__fadeInUp" data-wow-duration="2s">Desenvolvedor de Sistemas & Pedagogo</p>
+        <div class="buttons">
+            <a href="tudo.html" class="button back-button">
+                <span class="icon">
+                    <i class="fas fa-file-alt"></i>
+                </span>
+                <span>Ir ao Portfólio</span>
+            </a>
+            <a href="https://www.instagram.com/christian.felipesf/" target="_blank" class="button is-linktree">
+                <span class="icon">
+                    <i class="fab fa-instagram"></i>
+                </span>
+                <span>Instagram</span>
+            </a>
+            <a href="https://github.com/edergames29" target="_blank" class="button is-linktree">
+                <span class="icon">
+                    <i class="fab fa-github"></i>
+                </span>
+                <span>GitHub</span>
+            </a>
+            <a href="mailto:christian.felipe18@gmail.com" target="_blank" class="button is-linktree">
+                <span class="icon">
+                    <i class="fas fa-envelope"></i>
+                </span>
+                <span>Email</span>
+            </a>
+            <a href="https://wa.me/5598989138217" target="_blank" class="button is-linktree">
+                <span class="icon">
+                    <i class="fab fa-whatsapp"></i>
+                </span>
+                <span>WhatsApp</span>
+            </a>
+            <a href="curriculo.html" class="button is-linktree">
+                <span class="icon">
+                    <i class="fas fa-image"></i>
+                </span>
+                <span>Currículo</span>
+            </a>
+        </div>
+    
+        <!-- Seção do livro Água Infinita -->
+        <div class="book-section wow animate__fadeInUp" data-wow-duration="2s">
+            <h2 class="title has-text-grey">Meu Livro: Água Infinita</h2>
+            <a href="https://a.co/d/eKLy48j" target="_blank" class="button is-linktree">
+                <span class="icon">
+                    <i class="fas fa-book"></i>
+                </span>
+                <span>Comprar Água Infinita</span>
+            </a>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+</body>
+</html>
