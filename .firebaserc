@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "sobre-christian"
-  }
+    "teste": "sobrechr",
+    "default": "sobrechr"
+  },
+  "targets": {},
+  "etags": {}
 }
