@@ -110,6 +110,11 @@
             text-align: center; /* Centraliza o conteúdo das seções */
         }
 
+        /* Estilo para a seção de Cursos e Habilidades - mantido padrão */
+        #cursos.section-container {
+            /* Mantém o estilo padrão do section-container */
+        }
+
         /* Estilo para títulos de seção */
         .section-title {
             color: #202124;
@@ -134,7 +139,7 @@
         }
 
         .skill-list li {
-            background-color: #f1f3f4;
+            background-color: #f0f4f7; /* Um cinza azulado muito claro, quase branco */
             border-radius: 8px;
             padding: 12px 20px;
             margin-bottom: 10px;
@@ -144,10 +149,25 @@
             font-weight: 500;
             color: #3c4043;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            /* Transição para todas as propriedades animadas */
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; 
         }
 
+        /* Animação ao passar o mouse sobre cada item da lista */
+        .skill-list li:hover {
+            background-color: #1a73e8; /* Cor azul desejada ao passar o mouse */
+            color: #ffffff; /* Texto branco para contraste */
+            transform: translateY(-3px) scale(1.01); /* Move ligeiramente para cima e aumenta um pouco */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada */
+        }
+
+        .skill-list li:hover i {
+            color: #ffffff; /* Ícone branco para contraste ao passar o mouse */
+        }
+
+        /* Ajuste de espaçamento para ícones e texto */
         .skill-list li i {
-            margin-right: 10px;
+            margin-right: 15px; /* Aumentado de 10px para 15px para mais espaço */
             color: #1a73e8; /* Cor do ícone */
         }
 
@@ -312,7 +332,6 @@
                 <li><i class="fas fa-object-ungroup"></i> Programação Orientada a Objetos (POO).</li>
                 <li><i class="fab fa-github"></i> Controle de Versão com GitHub.</li>
                 <li><i class="fas fa-graduation-cap"></i> Graduação em Análise e Desenvolvimento de Sistemas (em andamento).</li>
-                <li><i class="fas fa-book-reader"></i> Graduação em Pedagogia (em andamento).</li>
             </ul>
         </section>
 
@@ -378,6 +397,26 @@
                 }
             });
         });
+
+        // Removido o script de funcionalidade de clique para os itens da lista de habilidades
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const skillListItems = document.querySelectorAll('.skill-list li');
+        //     let currentClickedItem = null; // Para rastrear o item atualmente clicado
+
+        //     skillListItems.forEach(item => {
+        //         item.addEventListener('click', function() {
+        //             // Se houver um item clicado anteriormente, remove a classe 'clicked-skill' dele
+        //             if (currentClickedItem) {
+        //                 currentClickedItem.classList.remove('clicked-skill');
+        //             }
+
+        //             // Adiciona a classe 'clicked-skill' ao item clicado atualmente
+        //             this.classList.add('clicked-skill');
+        //             // Atualiza o item clicado atualmente
+        //             currentClickedItem = this;
+        //         });
+        //     });
+        // });
     </script>
 </body>
 </html>
