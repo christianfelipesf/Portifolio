@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
+<html lang="pt-br"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/profilepic.png" type="image/png">
-    <title>💾 Portfólio & Currículo de Christian Felipe</title>
-    <!-- Font Awesome para Ícones -->
+    <title>💾 Portfólio de Christian Felipe</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- html2pdf.js para exportar para PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
@@ -28,18 +22,33 @@
             overflow-x: hidden;
         }
 
-        /* Animação de Entrada (Scroll Reveal) */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        /* TELA DE CARREGAMENTO */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease-out;
         }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #1a73e8;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
         }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* Navbar estilo Google */
+        /* NAVBAR */
         .navbar-google {
             background-color: #ffffff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -54,29 +63,17 @@
             border-bottom: 1px solid #e0e0e0;
         }
 
-        .nav-brand-title {
-            font-weight: 700;
-            color: #202124;
-            font-size: 1.25rem;
-        }
-
-        /* Containers principais */
+        /* CONTAINERS */
         .section-container {
             background-color: #ffffff;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
             padding: 40px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             width: 100%;
             max-width: 800px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-        }
-
-        /* Efeito de hover nos cards */
-        .section-container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+            text-align: center;
+            transition: transform 0.3s ease;
         }
 
         .section-title {
@@ -84,45 +81,45 @@
             font-weight: 700;
             font-size: 2rem;
             margin-bottom: 24px;
-            display: inline-block;
             border-bottom: 3px solid #1a73e8;
+            display: inline-block;
         }
 
-        /* Lista de Habilidades Interativa */
+        /* ESTILO DE LISTA DE HABILIDADES */
         .skill-list {
             list-style: none;
             padding: 0;
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 12px;
         }
-        @media (min-width: 640px) { .skill-list { grid-template-columns: 1fr 1fr; } }
-
         .skill-list li {
             background-color: #f1f3f4;
             border-radius: 8px;
-            padding: 14px 20px;
+            padding: 14px;
             display: flex;
             align-items: center;
+            justify-content: center;
+            font-weight: 500;
             transition: all 0.3s ease;
         }
         .skill-list li:hover {
             background-color: #1a73e8;
             color: white;
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
-        .skill-list li i { margin-right: 12px; color: #1a73e8; font-size: 1.2rem; }
+        .skill-list li i { margin-right: 10px; color: #1a73e8; }
         .skill-list li:hover i { color: white; }
 
-        /* Timeline de Experiência */
-        .experience-item {
+        /* TIMELINE EXPERIENCIA */
+        .exp-item {
+            text-align: left;
             border-left: 3px solid #1a73e8;
             padding-left: 20px;
-            margin-bottom: 30px;
-            text-align: left;
+            margin-bottom: 25px;
             position: relative;
         }
-        .experience-item::before {
+        .exp-item::before {
             content: "";
             position: absolute;
             left: -8px;
@@ -133,244 +130,197 @@
             border-radius: 50%;
         }
 
-        /* QR Code Styling */
-        .qr-wrapper {
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 2px solid #e8eaed;
-            padding: 12px;
-            border-radius: 12px;
-            background: white;
-            display: inline-block;
-        }
-        .qr-wrapper:hover {
-            transform: scale(1.1) rotate(3deg);
-            border-color: #1a73e8;
-        }
-
-        /* Botões */
+        /* BOTÕES */
         .btn-google {
-            padding: 12px 28px;
-            border-radius: 25px;
+            padding: 12px 24px;
+            border-radius: 8px;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
             transition: all 0.3s ease;
+            text-decoration: none;
             cursor: pointer;
+        }
+        .btn-blue {
+            background-color: #1a73e8;
+            color: white;
             border: none;
         }
-        .btn-primary { background-color: #1a73e8; color: white; }
-        .btn-primary:hover { background-color: #1765cc; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3); }
-        
-        .btn-copy { background-color: #f1f3f4; color: #3c4043; border: 1px solid #dadce0; }
-        .btn-copy:hover { background-color: #e8eaed; transform: scale(1.05); }
-
-        /* Toast Notification */
-        #toast {
-            visibility: hidden;
-            min-width: 250px;
-            background-color: #202124;
-            color: #fff;
-            text-align: center;
-            border-radius: 8px;
-            padding: 16px;
-            position: fixed;
-            z-index: 1000;
-            left: 50%;
-            bottom: 30px;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: all 0.4s ease;
+        .btn-blue:hover {
+            background-color: #1765cc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
         }
-        #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
+        /* BOTÃO WHATSAPP ESPECÍFICO */
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            border: none;
+            margin-top: 15px; /* Espaço entre o botão de PDF e este */
+        }
 
-        /* Ajustes para PDF */
-        .pdf-mode { background-color: white !important; }
-        .pdf-mode .reveal { opacity: 1 !important; transform: none !important; }
-        .pdf-mode .section-container { box-shadow: none !important; border: 1px solid #eee !important; margin-bottom: 20px !important; transform: none !important; }
+        .btn-whatsapp:hover {
+            background-color: #21bd5c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp i {
+            font-size: 1.4rem;
+        }
+
+        /* MODO PDF */
+        .pdf-mode { background: white !important; }
+        .pdf-mode .section-container { box-shadow: none !important; border: 1px solid #eee !important; margin-bottom: 20px !important; }
         .pdf-mode .no-pdf { display: none !important; }
+
+        /* AJUSTE REVEAL (Sem esconder no inicio) */
+        .reveal {
+            opacity: 1;
+            transform: none;
+        }
     </style>
-</head>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.mb-6{margin-bottom:1.5rem}.mr-2{margin-right:0.5rem}.mr-3{margin-right:0.75rem}.mt-2{margin-top:0.5rem}.mt-8{margin-top:2rem}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-40{height:10rem}.w-40{width:10rem}.w-6{width:1.5rem}.w-full{width:100%}.max-w-4xl{max-width:56rem}.flex-col{flex-direction:column}.items-center{align-items:center}.gap-6{gap:1.5rem}.space-x-6 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1.5rem * var(--tw-space-x-reverse));margin-left:calc(1.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.rounded-full{border-radius:9999px}.rounded-xl{border-radius:0.75rem}.border-2{border-width:2px}.border-4{border-width:4px}.border-gray-100{--tw-border-opacity:1;border-color:rgb(243 244 246 / var(--tw-border-opacity, 1))}.border-white{--tw-border-opacity:1;border-color:rgb(255 255 255 / var(--tw-border-opacity, 1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.object-cover{object-fit:cover}.p-3{padding:0.75rem}.p-5{padding:1.25rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.py-5{padding-top:1.25rem;padding-bottom:1.25rem}.pb-20{padding-bottom:5rem}.pb-5{padding-bottom:1.25rem}.text-left{text-align:left}.text-center{text-align:center}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-\[10px\]{font-size:10px}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-relaxed{line-height:1.625}.text-blue-600{--tw-text-opacity:1;color:rgb(37 99 235 / var(--tw-text-opacity, 1))}.text-blue-800{--tw-text-opacity:1;color:rgb(30 64 175 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity, 1))}.text-gray-800{--tw-text-opacity:1;color:rgb(31 41 55 / var(--tw-text-opacity, 1))}.text-gray-900{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity, 1))}.text-red-500{--tw-text-opacity:1;color:rgb(239 68 68 / var(--tw-text-opacity, 1))}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.hover\:text-blue-600:hover{--tw-text-opacity:1;color:rgb(37 99 235 / var(--tw-text-opacity, 1))}@media (min-width: 768px){.md\:flex{display:flex}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:flex-row{flex-direction:row}.md\:text-left{text-align:left}}</style></head>
 <body>
+
+    <!-- TELA DE CARREGAMENTO -->
+    <div id="loading-overlay" style="opacity: 0; display: none;">
+        <div class="spinner"></div>
+        <p class="text-gray-500 font-medium">Carregando currículo...</p>
+    </div>
 
     <!-- NAVBAR -->
     <header class="navbar-google no-pdf">
-        <span class="nav-brand-title">Christian Felipe</span>
-        <nav class="hidden md:flex space-x-6 text-sm font-medium">
-            <a href="#sobre" class="hover:text-blue-600 transition">Sobre</a>
-            <a href="#experiencia" class="hover:text-blue-600 transition">Experiência</a>
-            <a href="#competencias" class="hover:text-blue-600 transition">Habilidades</a>
-            <a href="#contato" class="hover:text-blue-600 transition">Contato</a>
+        <span class="text-xl font-bold text-gray-800">Christian Felipe</span>
+        <nav class="hidden md:flex space-x-6">
+            <a href="#sobre" class="hover:text-blue-600 font-medium">Sobre</a>
+            <a href="#experiencia" class="hover:text-blue-600 font-medium">Experiência</a>
+            <a href="#portfolio" class="hover:text-blue-600 font-medium">Projetos</a>
         </nav>
     </header>
-    
-    <!-- CONTEÚDO DO PDF -->
-    <div id="cv-content" class="w-full flex flex-col items-center">
-        <main class="flex flex-col items-center w-full p-5 max-w-4xl">
-            
-            <!-- CABEÇALHO/HERO -->
-            <section id="hero" class="section-container mt-10 reveal active">
-                <div class="flex flex-col md:flex-row items-center gap-8">
-                    <img src="photo_5066900424245316476_y.jpg" alt="Foto de Christian Felipe" class="rounded-full w-40 h-40 object-cover shadow-xl border-4 border-white transition-transform hover:rotate-3">
-                    <div class="text-center md:text-left">
-                        <h1 class="text-4xl font-bold text-gray-900">Christian Felipe</h1>
-                        <p class="text-gray-500 font-medium text-lg">Brasileiro | 24 anos</p>
-                        <p class="text-xl text-blue-600 font-bold mt-2">Desenvolvedor de Sistemas & Pedagogo</p>
-                        
-                        <!-- BOTÃO DE CÓPIA (QR CODE DE CÓPIA) -->
-                        <div class="mt-6 no-pdf">
-                            <button onclick="copyLink()" class="btn-google btn-copy">
-                                <i class="fas fa-qrcode text-blue-500"></i> Copiar Link do Site (Portfólio)
-                            </button>
-                        </div>
-                    </div>
+
+    <div id="cv-content" class="w-full flex flex-col items-center p-5">
+        
+        <!-- HEADER / HERO -->
+        <section id="hero" class="section-container mt-8">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <img src="perfil2.jpg" alt="Foto Christian" class="w-40 h-40 rounded-full object-cover border-4 border-white shadow-lg">
+                <div class="text-center md:text-left">
+                    <h1 class="text-4xl font-bold text-gray-900">Christian Felipe</h1>
+                    <p class="text-gray-500 font-medium">Brasileiro | 24 anos</p>
+                    <p class="text-xl text-blue-600 font-bold mt-2">Desenvolvedor de Sistemas &amp; Pedagogo</p>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- RESUMO -->
-            <section id="sobre" class="section-container reveal">
-                <h2 class="section-title">Sobre Mim</h2>
-                <p class="text-gray-600 text-lg leading-relaxed text-left">
-                    Desenvolvedor de sistemas e pedagogo. Especialista em unir tecnologia e educação para criar soluções digitais interativas, sistemas eficientes e experiências de usuário memoráveis. Comprometido com a inovação e o aprendizado constante.
-                </p>
-            </section>
+        <!-- SOBRE -->
+        <section id="sobre" class="section-container">
+            <h2 class="section-title">Sobre Mim</h2>
+            <p class="text-gray-600 text-lg leading-relaxed">
+                Especialista em unir tecnologia e educação para criar soluções digitais interativas. Desenvolvedor de websites e jogos desde 2020, focado em inovação, inteligência artificial e excelência no desenvolvimento ágil.
+            </p>
+        </section>
 
-            <!-- EXPERIÊNCIAS -->
-            <section id="experiencia" class="section-container reveal">
-                <h2 class="section-title">Experiência Profissional</h2>
-                <div class="space-y-4">
-                    <div class="experience-item">
-                        <h3 class="font-bold text-xl text-gray-800">Atendente de Loja</h3>
-                        <p class="text-blue-600 font-semibold">Maxx Internet | 2025 - 2026</p>
-                        <p class="text-gray-600">Atendimento ao cliente e suporte técnico em serviços de telecomunicações.</p>
-                    </div>
-                    <div class="experience-item">
-                        <h3 class="font-bold text-xl text-gray-800">Criador de Websites e Jogos</h3>
-                        <p class="text-blue-600 font-semibold">Autônomo | Desde 2020</p>
-                        <p class="text-gray-600">Desenvolvimento de portfólios, landing pages e jogos 2D/3D interativos.</p>
-                    </div>
-                    <div class="experience-item">
-                        <h3 class="font-bold text-xl text-gray-800">Análise e Desenvolvimento de Sistemas</h3>
-                        <p class="text-gray-500 font-medium">Ensino Superior | Em andamento</p>
-                    </div>
+        <!-- EXPERIÊNCIAS (Dados da Imagem) -->
+        <section id="experiencia" class="section-container">
+            <h2 class="section-title">Experiências</h2>
+            <div class="space-y-4">
+                <div class="exp-item">
+                    <h3 class="font-bold text-xl">Atendente de Loja na Maxx Internet</h3>
+                    <p class="text-blue-600 font-semibold">2025 - Atual</p>
                 </div>
-            </section>
-
-            <!-- HABILIDADES -->
-            <section id="competencias" class="section-container reveal">
-                <h2 class="section-title">Habilidades & Tecnologias</h2>
-                <ul class="skill-list">
-                    <li><i class="fab fa-python"></i> Python & Inteligência Artificial</li>
-                    <li><i class="fas fa-laptop-code"></i> Desenvolvimento Web Full Stack</li>
-                    <li><i class="fas fa-gamepad"></i> Criação de Jogos (Unity/Web)</li>
-                    <li><i class="fas fa-database"></i> Gestão de Banco de Dados</li>
-                    <li><i class="fas fa-brain"></i> Design de Interface Criativo</li>
-                    <li><i class="fas fa-comments"></i> Comunicação e Pedagogia</li>
-                    <li><i class="fas fa-users-cog"></i> Gestão de Projetos Colaborativos</li>
-                    <li><i class="fas fa-language"></i> Inglês (Nível Básico)</li>
-                </ul>
-            </section>
-
-            <!-- CONTATO + QR CODE (VISÍVEL NO PDF) -->
-            <section id="contato" class="section-container reveal">
-                <h2 class="section-title">Contato & Localização</h2>
-                <div class="grid md:grid-cols-2 gap-8 items-center text-left">
-                    <div class="space-y-4">
-                        <p class="flex items-center"><i class="fas fa-phone text-blue-600 w-8 text-xl"></i> <span>(98) 98913-8217</span></p>
-                        <p class="flex items-center"><i class="fas fa-envelope text-red-500 w-8 text-xl"></i> <span>christian.felipe18@gmail.com</span></p>
-                        <p class="flex items-center"><i class="fas fa-map-marker-alt text-gray-500 w-8 text-xl"></i> <span>Rua Santa Bárbara nº 34, Santa Rita - MA</span></p>
-                        <p class="flex items-center"><i class="fab fa-linkedin text-blue-800 w-8 text-xl"></i> <span>/in/christian-felipe-96b621293</span></p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="qr-wrapper">
-                            <!-- QR Code que aponta para o site real -->
-                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://sobrechr.web.app/" alt="QR Code Portfólio">
-                        </div>
-                        <p class="mt-3 text-xs font-bold text-blue-600 uppercase tracking-tighter">Acesse o Portfólio Online</p>
-                    </div>
+                <div class="exp-item">
+                    <h3 class="font-bold text-xl">Análise e Desenvolvimento de Sistemas</h3>
+                    <p class="text-blue-600 font-semibold">Atual</p>
+                    <!--<p class="text-gray-500 font-semibold">Atual</p>--> 
                 </div>
-            </section>
+                <div class="exp-item">
+                    <h3 class="font-bold text-xl">Criador de Web Sites e Jogos</h3>
+                    <p class="text-blue-600 font-semibold">Desde 2020</p>
+                    <p class="text-sm text-gray-400">https://sobrechr.web.app/</p>
+                </div>
+            </div>
+        </section>
 
-        </main>
+        <!-- PORTFÓLIO -->
+        <section id="portfolio" class="section-container">
+            <h2 class="section-title">Portfólio</h2>
+            <p class="text-gray-600 mb-6">Explore meus projetos de software, jogos interativos e artes 3D.</p>
+            <a class="btn-google btn-blue" href="portifolio.html">
+                <i class="fas fa-external-link-alt mr-2"></i> Ver Portfólio Completo
+            </a>
+        </section>
+
+        <!-- COMPETÊNCIAS / HABILIDADES -->
+        <section id="competencias" class="section-container">
+            <h2 class="section-title">Competências</h2>
+            <ul class="skill-list">
+                <li><i class="fas fa-check-circle"></i> Word, Excel, Banco de Dados</li>
+                <li><i class="fab fa-python"></i> Python &amp; IA</li>
+                <li><i class="fas fa-code"></i> Tecnologias Recentes</li>
+                <li><i class="fas fa-sync"></i> Atualização Contínua</li>
+                <li><i class="fas fa-laptop-code"></i> Dev de Websites</li>
+                <li><i class="fas fa-users"></i> Proatividade &amp; Pontualidade</li>
+            </ul>
+        </section>
+
+        <!-- CONTATO -->
+        <section id="contato" class="section-container">
+            <h2 class="section-title">Contato</h2>
+            <div class="grid md:grid-cols-2 gap-6 items-center text-left">
+                <div class="space-y-3">
+                    <p><i class="fas fa-phone text-blue-600 w-6"></i> (98) 98913-8217</p>
+                    <p><i class="fas fa-envelope text-red-500 w-6"></i> christian.felipe18@gmail.com</p>
+                    <p><i class="fas fa-map-marker-alt text-gray-400 w-6"></i> Rua Santa Bárbara n 34, Santa Rita - MA</p>
+                    <p><i class="fab fa-linkedin text-blue-800 w-6"></i> /in/christian-felipe-96b621293</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="p-3 bg-white border-2 border-gray-100 rounded-xl shadow-sm">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&amp;data=https://sobrechr.web.app/" alt="QR Code">
+                    </div>
+                    <p class="mt-2 text-[10px] font-bold text-blue-600 uppercase">Versão Online</p>
+                </div>
+            </div>
+        </section>
     </div>
-
-    <!-- BOTÃO ÚNICO DE DOWNLOAD (FIXO ABAIXO) -->
-    <div class="no-pdf w-full flex justify-center pb-20 mt-10 reveal">
-        <button onclick="gerarPDF()" class="btn-google btn-primary text-lg px-12 py-5 shadow-2xl">
-            <i class="fas fa-cloud-download-alt"></i> Baixar Currículo em PDF
+<div class="no-pdf w-full max-w-4xl px-5 pb-5">
+    <a href="https://wa.me/5598989138217" target="_blank" class="btn-google btn-whatsapp w-full py-5 text-xl">
+        <i class="fab fa-whatsapp mr-3"></i> Entrar em contato WhatsApp
+    </a>
+</div>
+    <!-- BOTÃO DOWNLOAD PDF -->
+    <div class="no-pdf w-full max-w-4xl px-5 pb-20">
+        <button onclick="gerarPDF()" class="btn-google btn-blue w-full py-5 text-xl">
+            <i class="fas fa-file-pdf mr-3"></i> Baixar Currículo
         </button>
     </div>
 
-    <footer class="footer-google no-pdf w-full bg-white border-t p-8 text-center text-gray-400 text-sm">
-        <p>&copy; 2024 Christian Felipe. Todos os direitos reservados.</p>
-    </footer>
-
-    <!-- Notificação -->
-    <div id="toast"><i class="fas fa-check-circle text-green-400 mr-2"></i> Link copiado para a área de transferência!</div>
-
     <script>
-        // Função de Revelação ao Rolar a Tela
-        const observerOptions = { threshold: 0.15 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
+        // REMOVER LOADING
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('loading-overlay');
+            loader.style.opacity = '0';
+            setTimeout(() => { loader.style.display = 'none'; }, 500);
+        });
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // Função para Copiar Link
-        function copyLink() {
-            const url = "https://sobrechr.web.app/";
-            const input = document.createElement("input");
-            input.value = url;
-            document.body.appendChild(input);
-            input.select();
-            document.execCommand("copy");
-            document.body.removeChild(input);
-            
-            const toast = document.getElementById("toast");
-            toast.className = "show";
-            setTimeout(() => { toast.className = ""; }, 3000);
-        }
-
-        // Função para Gerar PDF de Página Única Corrigida
+        // GERAR PDF
         function gerarPDF() {
             const element = document.getElementById('cv-content');
-            
-            // Ativa modo de captura (remove animações e sombras)
             document.body.classList.add('pdf-mode');
-            
-            // Força todas as seções a ficarem visíveis para o "print"
-            document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
 
-            // Pequeno atraso para garantir que o navegador processe as classes CSS
-            setTimeout(() => {
-                const opt = {
-                    margin:       0,
-                    filename:     'Curriculo_Christian_Felipe.pdf',
-                    image:        { type: 'jpeg', quality: 1.0 },
-                    html2canvas:  { 
-                        scale: 2, 
-                        useCORS: true, 
-                        scrollY: 0,
-                        logging: false 
-                    },
-                    // jsPDF configurado para usar o tamanho exato do elemento
-                    jsPDF: { 
-                        unit: 'px', 
-                        format: [element.offsetWidth, element.offsetHeight], 
-                        orientation: 'portrait' 
-                    }
-                };
+            const opt = {
+                margin: 0,
+                filename: 'Curriculo_Christian_Felipe.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
+                jsPDF: { unit: 'px', format: [element.offsetWidth, element.offsetHeight], orientation: 'portrait' }
+            };
 
-                html2pdf().set(opt).from(element).save().then(() => {
-                    document.body.classList.remove('pdf-mode');
-                });
-            }, 400);
+            html2pdf().set(opt).from(element).save().then(() => {
+                document.body.classList.remove('pdf-mode');
+            });
         }
     </script>
-</body>
-</html>
+
+</body></html>
