@@ -1,5 +1,5 @@
 # Portifolio
-Meu portfólio pessoal.
+Meu portfólio pessoal. 
 
 ![Print do Portfólio](Screenshot_1.png)
 
