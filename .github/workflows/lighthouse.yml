@@ -6,12 +6,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Audit live sites
         uses: treosh/lighthouse-ci-action@v10
         with:
-          # Aqui você lista as duas URLs separadas por vírgula
           urls: |
             https://sobrechr.web.app
             https://christianfelipesf.github.io/Portifolio/
-          uploadArtifacts: true
+          # Desativamos o upload nativo que está dando erro
+          uploadArtifacts: false 
+          # Pasta onde o Lighthouse salva os relatórios temporariamente
+          temporaryPublicStorage: false 
+
+      - name: Upload Lighthouse Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci/ # Pasta padrão onde os relatórios são gerados
