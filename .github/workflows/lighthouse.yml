@@ -1,0 +1,17 @@
+name: Lighthouse Report
+on: [push]
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Audit live sites
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          # Aqui você lista as duas URLs separadas por vírgula
+          urls: |
+            https://sobrechr.web.app
+            https://christianfelipesf.github.io/Portifolio/
+          uploadArtifacts: true
