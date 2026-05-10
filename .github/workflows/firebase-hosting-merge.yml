@@ -9,6 +9,11 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    
+    # ADD FIREBASE DEPLOY
+    environment:
+      name: firebase-production
+
     steps:
       - uses: actions/checkout@v4
       - run: npm ci
