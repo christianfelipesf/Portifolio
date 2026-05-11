@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/profilepic.png" type="image/png">
+    <title>Projetos | Christian Felipe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #3c4043;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Estilos de Carregamento */
+        #loading-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: white;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.4s ease-out;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #1a73e8;
+            border-radius: 50%;
+            width: 40px; height: 40px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Navbar */
+        .navbar-google {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 12px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-content {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-name {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: #202124;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            color: #5f6368;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .nav-link:hover {
+            background-color: #f1f3f4;
+            color: #1a73e8;
+        }
+
+        /* Cards e Layout */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            width: 100%;
+            max-width: 1100px;
+            margin-top: 32px;
+        }
+
+        .card-project {
+            background: white;
+            border: 1px solid #dadce0;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-project:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transform: translateY(-4px);
+            border-color: #1a73e8;
+        }
+
+        .card-img-container {
+            width: 100%;
+            height: 180px;
+            background-color: #f1f3f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 1px solid #eee;
+        }
+
+        .card-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card-project:hover .card-img-container img {
+            transform: scale(1.05);
+        }
+
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #1a73e8;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #202124;
+            margin-bottom: 12px;
+        }
+
+        .card-text {
+            color: #5f6368;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .btn-action {
+            margin-top: auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background 0.2s;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: #1a73e8;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1765cc;
+        }
+
+        .btn-outline {
+            border: 1px solid #dadce0;
+            color: #3c4043;
+        }
+
+        .btn-outline:hover {
+            background-color: #f8f9fa;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 40px 20px;
+            text-align: center;
+            color: #70757a;
+            font-size: 0.875rem;
+            border-top: 1px solid #e0e0e0;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Overlay de Loading -->
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <header class="navbar-google">
+        <div class="nav-content">
+            <a href="index.html" class="brand-name">
+                <i class="fas fa-code text-blue-600"></i>
+                Christian Felipe
+            </a>
+            <nav class="hidden md:flex gap-2">
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="fundamentos.html#sobre" class="nav-link">Sobre</a>
+                <a href="#" class="nav-link text-blue-600 bg-blue-50">Projetos</a>
+                <a href="fundamentos.html#contato" class="nav-link">Contato</a>
+            </nav>
+            <button class="md:hidden p-2" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex flex-col items-center px-6 py-12">
+        <div class="max-w-4xl w-full text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">Meus Projetos</h1>
+            <p class="text-lg text-gray-600">Uma coleção de ferramentas, experimentos web e jogos que desenvolvi.</p>
+        </div>
+
+        <div class="project-grid">
+            
+            <!-- Projeto: A Casa do Norte -->
+            <div class="card-project">
+                <div class="card-img-container">
+                    <img src="https://placehold.co/600x400/202124/FFFFFF?text=A+Casa+do+Norte" alt="Capa do Jogo A Casa do Norte">
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Game Design / Itch.io</span>
+                    <h3 class="card-title">A Casa do Norte</h3>
+                    <p class="card-text">Um jogo de aventura com atmosfera única, explorando elementos narrativos e ambientação imersiva.</p>
+                    <a href="https://christianchristianfelipesf.itch.io/a-casa-do-norte" target="_blank" class="btn-action btn-primary">
+                        <i class="fab fa-itch-io"></i> Jogar no Itch.io
+                    </a>
+                </div>
+            </div>
+
+            <!-- Projeto: GameAutolay -->
+            <div class="card-project">
+                <div class="card-img-container">
+                    <img src="https://placehold.co/600x400/1a73e8/FFFFFF?text=GameAutolay" alt="Ferramenta GameAutolay">
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Software / Automação</span>
+                    <h3 class="card-title">GameAutolay</h3>
+                    <p class="card-text">Software para automação de backups de savegames offline, garantindo que o progresso do jogador esteja sempre seguro.</p>
+                    <a href="https://github.com/christianfelipesf/GameAutolay" target="_blank" class="btn-action btn-outline">
+                        <i class="fab fa-github"></i> Ver no GitHub
+                    </a>
+                </div>
+            </div>
+
+            <!-- Projeto: Bot Gerador -->
+            <div class="card-project">
+                <div class="card-img-container">
+                    <img src="https://placehold.co/600x400/34a853/FFFFFF?text=Bot+Gerador" alt="Interface Bot Gerador">
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Web / Ferramenta (2019)</span>
+                    <h3 class="card-title">Bot Gerador</h3>
+                    <p class="card-text">Projeto nostálgico desenvolvido em 2019 focado em geração de conteúdo para organização de jogos.</p>
+                    <a href="https://christianfelipesf.github.io/botgerador/" target="_blank" class="btn-action btn-outline">
+                        <i class="fas fa-external-link-alt"></i> Acessar Site
+                    </a>
+                </div>
+            </div>
+
+            <!-- Projeto: FP November -->
+            <div class="card-project">
+                <div class="card-img-container">
+                    <img src="https://placehold.co/600x400/fbbc04/FFFFFF?text=FP+November" alt="Rank Nofap">
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Web / Entretenimento</span>
+                    <h3 class="card-title">Rank Nofap September</h3>
+                    <p class="card-text">Um microsite divertido criado como parte de uma interação com a comunidade e memes da internet.</p>
+                    <a href="https://christianfelipesf.github.io/fpnovember/" target="_blank" class="btn-action btn-outline">
+                        <i class="fas fa-link"></i> Ver Projeto
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-16 flex flex-col items-center">
+            <h2 class="text-2xl font-semibold mb-6">Tem algum projeto em mente?</h2>
+            <a href="tudo.html#contato" class="btn-action btn-primary px-8 py-3">
+                <i class="fas fa-envelope"></i> Vamos Conversar
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Christian Felipe. Criado com foco em performance e design limpo.</p>
+    </footer>
+
+    <script>
+        // Loading Overlay
+        window.addEventListener('load', () => {
+            const overlay = document.getElementById('loading-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => overlay.style.display = 'none', 400);
+        });
+
+        // Menu Mobile Toggle
+        function toggleMenu() {
+            const nav = document.querySelector('nav');
+            nav.classList.toggle('hidden');
+            nav.classList.toggle('flex');
+            nav.classList.toggle('flex-col');
+            nav.classList.toggle('absolute');
+            nav.classList.toggle('top-16');
+            nav.classList.toggle('left-0');
+            nav.classList.toggle('w-full');
+            nav.classList.toggle('bg-white');
+            nav.classList.toggle('p-4');
+            nav.classList.toggle('border-b');
+        }
+    </script>
+</body>
+</html>
