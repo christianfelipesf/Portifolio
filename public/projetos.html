@@ -19,25 +19,52 @@
             min-height: 100vh;
         }
 
-        /* Estilos de Carregamento */
+        /* SKELETON LOADING (Baseado na index.html) */
         #loading-overlay {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: white;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
             z-index: 9999;
-            transition: opacity 0.4s ease-out;
+            transition: opacity 0.5s ease-out;
+            padding-top: 100px;
         }
 
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #1a73e8;
-            border-radius: 50%;
-            width: 40px; height: 40px;
-            animation: spin 0.8s linear infinite;
+        .skeleton {
+            background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+            border-radius: 8px;
         }
 
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .skeleton-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            width: 100%;
+            max-width: 1100px;
+            padding: 0 24px;
+        }
+
+        .skeleton-card {
+            background: white;
+            border-radius: 12px;
+            padding: 0;
+            height: 400px;
+            border: 1px solid #dadce0;
+            overflow: hidden;
+        }
 
         /* Navbar */
         .navbar-google {
@@ -127,10 +154,6 @@
             transition: transform 0.5s ease;
         }
 
-        .card-project:hover .card-img-container img {
-            transform: scale(1.05);
-        }
-
         .card-body {
             padding: 20px;
             flex-grow: 1;
@@ -205,9 +228,42 @@
 </head>
 <body>
 
-    <!-- Overlay de Loading -->
+    <!-- SKELETON LOADING OVERLAY (Baseado no estilo da index.html) -->
     <div id="loading-overlay">
-        <div class="spinner"></div>
+        <div class="max-w-4xl w-full text-center mb-12 px-6">
+            <div class="skeleton h-10 w-64 mx-auto mb-4"></div>
+            <div class="skeleton h-6 w-96 mx-auto mb-8"></div>
+        </div>
+        <div class="skeleton-grid">
+            <!-- Representação dos Cards -->
+            <div class="skeleton-card">
+                <div class="skeleton h-44 w-full rounded-none mb-6"></div>
+                <div class="px-5 space-y-3">
+                    <div class="skeleton h-4 w-24"></div>
+                    <div class="skeleton h-7 w-48"></div>
+                    <div class="skeleton h-4 w-full"></div>
+                    <div class="skeleton h-4 w-3/4"></div>
+                </div>
+            </div>
+            <div class="skeleton-card">
+                <div class="skeleton h-44 w-full rounded-none mb-6"></div>
+                <div class="px-5 space-y-3">
+                    <div class="skeleton h-4 w-24"></div>
+                    <div class="skeleton h-7 w-48"></div>
+                    <div class="skeleton h-4 w-full"></div>
+                    <div class="skeleton h-4 w-3/4"></div>
+                </div>
+            </div>
+            <div class="skeleton-card">
+                <div class="skeleton h-44 w-full rounded-none mb-6"></div>
+                <div class="px-5 space-y-3">
+                    <div class="skeleton h-4 w-24"></div>
+                    <div class="skeleton h-7 w-48"></div>
+                    <div class="skeleton h-4 w-full"></div>
+                    <div class="skeleton h-4 w-3/4"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <header class="navbar-google">
@@ -231,7 +287,7 @@
     <main class="flex flex-col items-center px-6 py-12">
         <div class="max-w-4xl w-full text-center mb-12">
             <h1 class="text-4xl font-bold text-gray-900 mb-4">Meus Projetos</h1>
-            <p class="text-lg text-gray-600">Uma coleção de ferramentas, experimentos web e jogos que desenvolvi.</p>
+            <p class="text-lg text-gray-600">Uma coleção de ferramentas, experiências web e jogos que desenvolvi.</p>
         </div>
 
         <div class="project-grid">
@@ -276,7 +332,7 @@
                     <h3 class="card-title">Bot Gerador</h3>
                     <p class="card-text">Projeto nostálgico desenvolvido em 2019 focado em geração de conteúdo para organização de jogos.</p>
                     <a href="https://christianfelipesf.github.io/botgerador/" target="_blank" class="btn-action btn-outline">
-                        <i class="fas fa-external-link-alt"></i> Acessar Site
+                        <i class="fas fa-external-link-alt"></i> Aceder Site
                     </a>
                 </div>
             </div>
@@ -299,8 +355,8 @@
         </div>
 
         <div class="mt-16 flex flex-col items-center">
-            <h2 class="text-2xl font-semibold mb-6">Tem algum projeto em mente?</h2>
-            <a href="tudo.html#contato" class="btn-action btn-primary px-8 py-3">
+            <h2 class="text-2xl font-semibold mb-6">Tens algum projeto em mente?</h2>
+            <a href="fundamentos.html#contato" class="btn-action btn-primary px-8 py-3">
                 <i class="fas fa-envelope"></i> Vamos Conversar
             </a>
         </div>
@@ -311,11 +367,13 @@
     </footer>
 
     <script>
-        // Loading Overlay
+        // Loading Overlay (Sincronizado com o estilo da index.html)
         window.addEventListener('load', () => {
             const overlay = document.getElementById('loading-overlay');
             overlay.style.opacity = '0';
-            setTimeout(() => overlay.style.display = 'none', 400);
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 500);
         });
 
         // Menu Mobile Toggle

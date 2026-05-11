@@ -24,31 +24,43 @@
             overflow-x: hidden;
         }
 
-        /* TELA DE CARREGAMENTO */
+        /* SKELETON LOADING */
         #loading-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #ffffff;
+            background-color: #f8f9fa;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             z-index: 10000;
+            padding-top: 50px;
             transition: opacity 0.5s ease-out;
         }
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #1a73e8;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
+
+        .skeleton {
+            background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+            border-radius: 8px;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .skeleton-card {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
 
         /* NAVBAR */
         .navbar-google {
@@ -154,14 +166,13 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
         }
-        /* BOTÃO WHATSAPP ESPECÍFICO */
+
         .btn-whatsapp {
             background-color: #25D366;
             color: white;
             border: none;
-            margin-top: 15px; /* Espaço entre o botão de PDF e este */
+            margin-top: 15px;
         }
-
 
         .btn-whatsapp:hover {
             background-color: #21bd5c;
@@ -169,19 +180,11 @@
             box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
         }
 
-        .btn-whatsapp i {
-            font-size: 1.4rem;
-        }
-        .btn-projetos {
-            font-size: 1.4rem;
-        }
-
         /* MODO PDF */
         .pdf-mode { background: white !important; }
         .pdf-mode .section-container { box-shadow: none !important; border: 1px solid #eee !important; margin-bottom: 20px !important; }
         .pdf-mode .no-pdf { display: none !important; }
 
-        /* AJUSTE REVEAL (Sem esconder no inicio) */
         .reveal {
             opacity: 1;
             transform: none;
@@ -190,19 +193,39 @@
 </head>
 <body>
 
-    <!-- TELA DE CARREGAMENTO -->
+    <!-- SKELETON LOADING OVERLAY -->
     <div id="loading-overlay">
-        <div class="spinner"></div>
-        <p class="text-gray-500 font-medium">Carregando currículo...</p>
+        <div class="skeleton-card">
+            <div class="flex items-center gap-6">
+                <div class="skeleton w-32 h-32 rounded-full"></div>
+                <div class="flex-1">
+                    <div class="skeleton h-8 w-3/4 mb-4"></div>
+                    <div class="skeleton h-4 w-1/2 mb-2"></div>
+                    <div class="skeleton h-4 w-1/3"></div>
+                </div>
+            </div>
+        </div>
+        <div class="skeleton-card">
+            <div class="skeleton h-8 w-40 mb-6 mx-auto"></div>
+            <div class="skeleton h-4 w-full mb-2"></div>
+            <div class="skeleton h-4 w-full mb-2"></div>
+            <div class="skeleton h-4 w-2/3 mx-auto"></div>
+        </div>
+        <div class="skeleton-card">
+            <div class="skeleton h-8 w-48 mb-6 mx-auto"></div>
+            <div class="skeleton h-20 w-full mb-4"></div>
+            <div class="skeleton h-20 w-full"></div>
+        </div>
     </div>
 
     <!-- NAVBAR -->
     <header class="navbar-google no-pdf">
         <span class="text-xl font-bold text-gray-800">Christian Felipe</span>
         <nav class="hidden md:flex space-x-6">
+            <a href="index.html" class="hover:text-blue-600 font-medium">Início</a>
             <a href="#sobre" class="hover:text-blue-600 font-medium">Sobre</a>
             <a href="#experiencia" class="hover:text-blue-600 font-medium">Experiência</a>
-            <a href="#portfolio" class="hover:text-blue-600 font-medium">Projetos</a>
+            <a href="#projetos" class="hover:text-blue-600 font-medium">Projetos</a>
         </nav>
     </header>
 
@@ -228,7 +251,7 @@
             </p>
         </section>
 
-        <!-- EXPERIÊNCIAS (Dados da Imagem) -->
+        <!-- EXPERIÊNCIAS -->
         <section id="experiencia" class="section-container">
             <h2 class="section-title">Experiências</h2>
             <div class="space-y-4">
@@ -238,8 +261,7 @@
                 </div>
                 <div class="exp-item">
                     <h3 class="font-bold text-xl">Análise e Desenvolvimento de Sistemas</h3>
-                    <p class="text-blue-600 font-semibold">Atual</p>
-                    <!--<p class="text-gray-500 font-semibold">Atual</p>--> 
+                    <p class="text-blue-600 font-semibold">Cursando</p>
                 </div>
                 <div class="exp-item">
                     <h3 class="font-bold text-xl">Criador de Web Sites e Jogos</h3>
@@ -249,12 +271,22 @@
             </div>
         </section>
 
-        <!-- PORTFÓLIO -->
-        <section id="portfolio" class="section-container">
-            <h2 class="section-title">Portfólio</h2>
-            <p class="text-gray-600 mb-6">Explore meus projetos de software, jogos interativos e artes 3D.</p>
-            <a class="btn-google btn-blue" href="portifolio.html">
-                <i class="fas fa-external-link-alt mr-2"></i> Ver Portfólio Completo
+        <!-- SEÇÃO DE PROJETOS (Substituiu Portfólio) -->
+        <section id="projetos" class="section-container">
+            <h2 class="section-title">Projetos</h2>
+            <p class="text-gray-600 mb-6">Explore minha galeria de projetos de software, jogos interativos e experiências digitais.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div class="p-4 border border-gray-100 rounded-lg bg-gray-50 text-left">
+                    <h4 class="font-bold"><i class="fas fa-globe text-blue-500 mr-2"></i> Web Apps</h4>
+                    <p class="text-sm text-gray-500">Sistemas responsivos e modernos.</p>
+                </div>
+                <div class="p-4 border border-gray-100 rounded-lg bg-gray-50 text-left">
+                    <h4 class="font-bold"><i class="fas fa-gamepad text-green-500 mr-2"></i> Games</h4>
+                    <p class="text-sm text-gray-500">Jogos educativos e casuais.</p>
+                </div>
+            </div>
+            <a class="btn-google btn-blue" href="projetos.html">
+                <i class="fas fa-rocket mr-2"></i> Acessar Aba de Projetos
             </a>
         </section>
 
@@ -285,37 +317,33 @@
                     <div class="p-3 bg-white border-2 border-gray-100 rounded-xl shadow-sm">
                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=https://sobrechr.web.app/" alt="QR Code">
                     </div>
-                    <p class="mt-2 text-[10px] font-bold text-blue-600 uppercase">Qr Code</p>
+                    <p class="mt-2 text-[10px] font-bold text-blue-600 uppercase">Qr Code Site</p>
                 </div>
             </div>
         </section>
     </div>
-<div class="no-pdf w-full max-w-4xl px-5 pb-2">
-    <a href="projetos.html" class="block w-full">
-        <button class="btn-google btn-blue w-full py-5 text-xl">
-            <i class="fas fa-folder-open mr-3"></i>Projetos
-        </button>
-    </a>
-</div>
 
-<div class="no-pdf w-full max-w-4xl px-5 pb-5">
-    <a href="https://wa.me/5598989138217" target="_blank" class="btn-google btn-whatsapp w-full py-5 text-xl">
-        <i class="fab fa-whatsapp mr-3"></i> Entrar em contato WhatsApp
-    </a>
-</div>
-    <!-- BOTÃO DOWNLOAD PDF -->
+
+    <div class="no-pdf w-full max-w-4xl px-5 pb-5">
+        <a href="https://wa.me/5598989138217" target="_blank" class="btn-google btn-whatsapp w-full py-5 text-xl">
+            <i class="fab fa-whatsapp mr-3"></i> Entrar em contato WhatsApp
+        </a>
+    </div>
+
     <div class="no-pdf w-full max-w-4xl px-5 pb-20">
         <button onclick="gerarPDF()" class="btn-google btn-blue w-full py-5 text-xl">
-            <i class="fas fa-file-pdf mr-3"></i> Baixar Currículo
+            <i class="fas fa-file-pdf mr-3"></i> Baixar Currículo em PDF
         </button>
     </div>
 
     <script>
-        // REMOVER LOADING
+        // REMOVER LOADING (SKELETON)
         window.addEventListener('load', function() {
             const loader = document.getElementById('loading-overlay');
             loader.style.opacity = '0';
-            setTimeout(() => { loader.style.display = 'none'; }, 500);
+            setTimeout(() => { 
+                loader.style.display = 'none'; 
+            }, 500);
         });
 
         // GERAR PDF
