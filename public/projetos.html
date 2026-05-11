@@ -66,17 +66,21 @@
             overflow: hidden;
         }
 
-        /* Navbar */
+        /* NAVBAR */
         .navbar-google {
             background-color: #ffffff;
-            border-bottom: 1px solid #e0e0e0;
-            padding: 12px 24px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            padding: 16px 24px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             position: sticky;
             top: 0;
-            z-index: 50;
-            display: flex;
-            justify-content: center;
+            z-index: 100;
+            border-bottom: 1px solid #e0e0e0;
         }
+
 
         .nav-content {
             width: 100%;
@@ -266,22 +270,15 @@
         </div>
     </div>
 
-    <header class="navbar-google">
-        <div class="nav-content">
-            <a href="index.html" class="brand-name">
-                <i class="fas fa-code text-blue-600"></i>
-                Christian Felipe
-            </a>
-            <nav class="hidden md:flex gap-2">
-                <a href="index.html" class="nav-link">Início</a>
-                <a href="fundamentos.html#sobre" class="nav-link">Sobre</a>
-                <a href="#" class="nav-link text-blue-600 bg-blue-50">Projetos</a>
-                <a href="fundamentos.html#contato" class="nav-link">Contato</a>
-            </nav>
-            <button class="md:hidden p-2" onclick="toggleMenu()">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
+    <!-- NAVBAR -->
+    <header class="navbar-google no-pdf">
+        <span class="text-xl font-bold text-gray-800">Christian Felipe</span>
+        <nav class="hidden md:flex space-x-6">
+            <a href="index.html" class="hover:text-blue-600 font-medium">Início</a>
+            <a href="#sobre" class="hover:text-blue-600 font-medium">Sobre</a>
+            <a href="#experiencia" class="hover:text-blue-600 font-medium">Experiência</a>
+            <a href="#projetos" class="hover:text-blue-600 font-medium">Projetos</a>
+        </nav>
     </header>
 
     <main class="flex flex-col items-center px-6 py-12">
