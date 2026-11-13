@@ -3,180 +3,597 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfólio de Christian Felipe — desenvolvedor de websites, jogos e experiências com IA.">
     <link rel="icon" href="/profilepic.png" type="image/png">
-    <title>💾 Links de Christian Felipe</title>
+    <title>Christian Felipe — Portfólio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link rel="stylesheet" href="loading.css">
     <script src="loading.js" defer></script>
     <style>
-        /* Configuração da fonte para todo o corpo */
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8f9fa;
             color: #3c4043;
+            margin: 0;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
         }
 
-        /* Estilo para a imagem de perfil */
-        .profile-img {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        /* Visibilidade das secoes (roteador por hash) */
+        .view[hidden] { display: none; }
+
+        /* Animacao de entrada ao trocar de secao */
+        @keyframes view-in {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .view-enter .section-container { animation: view-in 0.28s ease-out; }
+        @media (prefers-reduced-motion: reduce) {
+            .view-enter .section-container { animation: none; }
         }
 
-        .profile-img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Contêiner principal */
-        .container-google {
-            text-align: center;
+        /* NAVBAR */
+        .navbar-google {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            padding: 16px 24px;
             width: 100%;
-            max-width: 480px;
-            padding: 32px;
+            display: flex;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .nav-inner {
+            width: 100%;
+            max-width: 960px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-brand {
+            font-weight: 700;
+            color: #202124;
+            font-size: 1.25rem;
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 4px; }
+        .nav-link {
+            color: #5f6368;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .nav-link:hover { background-color: #e8eaed; color: #202124; }
+        .nav-link.active { background-color: #e8f0fe; color: #1a73e8; }
+        .menu-btn {
+            display: none;
+            background: none;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            color: #3c4043;
+            font-size: 1rem;
+        }
+
+        /* CONTAINERS */
+        .section-container {
             background-color: #ffffff;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-            margin-top: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
+            text-align: center;
         }
+        .section-title {
+            color: #202124;
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 24px;
+        }
+        .section-title-accent { border-bottom: 3px solid #1a73e8; display: inline-block; padding-bottom: 8px; }
+        .section-paragraph { color: #5f6368; font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px; }
 
-        /* Estilo para os botões de link */
-        .button-google {
+        /* HERO */
+        .profile-img { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .profile-img:hover { transform: scale(1.05); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); }
+
+        /* BOTOES */
+        .btn-google {
             background-color: #f1f3f4;
             color: #3c4043;
-            width: 100%;
-            margin-bottom: 12px;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             padding: 12px 24px;
             border-radius: 8px;
             font-weight: 500;
             border: 1px solid #dadce0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .btn-google:hover { background-color: #e8eaed; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); transform: translateY(-2px); }
+        .btn-blue { background-color: #1a73e8; color: #ffffff; border: none; }
+        .btn-blue:hover { background-color: #185abc; box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3); }
+        .btn-green { background-color: #25D366; color: #ffffff; border: none; }
+        .btn-green:hover { background-color: #21bd5c; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); }
+        .btn-block { width: 100%; }
+
+        /* HABILIDADES */
+        .skill-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+        .skill-list li {
+            background-color: #f1f3f4;
+            border-radius: 8px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 500;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .skill-list li:hover { background-color: #1a73e8; color: #ffffff; }
+        .skill-list li i { color: #1a73e8; }
+        .skill-list li:hover i { color: #ffffff; }
+
+        /* TIMELINE */
+        .exp-item {
+            text-align: left;
+            border-left: 3px solid #1a73e8;
+            padding-left: 20px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        .exp-item::before {
+            content: "";
+            position: absolute;
+            left: -8px;
+            top: 5px;
+            width: 13px;
+            height: 13px;
+            background: #1a73e8;
+            border-radius: 50%;
         }
 
-        .button-google:hover {
-            background-color: #e8eaed;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
+        /* CARDS DE PROJETO */
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            text-align: left;
         }
+        @media (min-width: 700px) { .project-grid { grid-template-columns: 1fr 1fr; } }
+        .card-project {
+            background: #ffffff;
+            border: 1px solid #dadce0;
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+        .card-project:hover { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); border-color: #1a73e8; transform: translateY(-4px); }
+        .card-tag { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #1a73e8; }
+        .card-title { font-size: 1.25rem; font-weight: 600; color: #202124; margin: 0; }
+        .card-text { color: #5f6368; font-size: 0.95rem; line-height: 1.5; margin: 0 0 12px 0; }
+        .card-actions { margin-top: auto; display: flex; gap: 10px; flex-wrap: wrap; }
+        .card-icon { font-size: 1.5rem; color: #1a73e8; margin-bottom: 4px; }
 
-        .button-google .icon {
-            margin-right: 10px;
+        /* CONTATO */
+        .contact-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; color: #3c4043; }
+        .contact-row a { color: #1a73e8; }
+        .contact-row i { width: 24px; text-align: center; }
+
+        /* RODAPE */
+        .footer-google {
+            background-color: #ffffff;
+            padding: 24px;
+            width: 100%;
+            text-align: center;
             color: #5f6368;
-        }
-
-        /* Estilo específico para o botão "Ir ao Portfólio" */
-        .button-portfolio {
-            background-color: #1a73e8;
-            color: #ffffff;
-            border: none;
-        }
-
-        .button-portfolio:hover {
-            background-color: #185abc;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
-        }
-
-        /* Estilo para títulos */
-        .title-google {
-            color: #202124;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        /* Estilo para subtítulos */
-        .subtitle-google {
-            color: #5f6368;
-            font-weight: 400;
-            margin-bottom: 24px;
-        }
-
-        /* Estilo para a seção do livro */
-        .book-section-google {
-            margin-top: 32px;
-            padding-top: 24px;
+            font-size: 0.9rem;
             border-top: 1px solid #e0e0e0;
+            margin-top: auto;
         }
 
-        @media (max-width: 640px) {
-            .container-google {
-                padding: 24px;
+        /* MODO PDF: so a secao curriculo importa */
+        .pdf-mode { background: #ffffff; }
+        .pdf-mode .no-pdf { display: none !important; }
+        .pdf-mode .section-container { box-shadow: none; border: 1px solid #eee; }
+
+        @media (max-width: 768px) {
+            .menu-btn { display: block; }
+            .nav-inner { flex-wrap: wrap; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 10px;
             }
-            .button-google {
-                padding: 10px 20px;
-            }
+            .nav-links.is-active { display: flex; }
+            .nav-link { width: 100%; text-align: left; }
+            .section-container { padding: 24px; }
+            .section-title { font-size: 1.6rem; }
+        }
+        @media (min-width: 769px) { .nav-links { display: flex !important; } }
+
+        /* IMPRESSAO: fallback do PDF mostra so o curriculo */
+        @media print {
+            body { background: #ffffff; }
+            .navbar-google, .footer-google, #loading-overlay, .no-pdf { display: none !important; }
+            .view:not(#view-curriculo) { display: none !important; }
+            #view-curriculo { display: block !important; }
+            .section-container { box-shadow: none; border: 1px solid #ddd; }
         }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-5">
+<body>
 
-    <!-- LOADING UNIFICADO (transição de entrada/saída, ver loading.css/loading.js) -->
+    <!-- LOADING UNIFICADO (entrada + transicao entre secoes) -->
     <div id="loading-overlay" role="status" aria-label="Carregando página">
         <div class="loader-brand" aria-hidden="true">CF</div>
         <div class="loader-bar" aria-hidden="true"><span></span></div>
         <p class="loader-text">Carregando…</p>
     </div>
 
-    <div class="container-google">
-        <figure class="w-32 h-32 mx-auto mb-6">
-            <img src="perfil2.jpg" alt="Foto de Christian Felipe" class="rounded-full profile-img">
-        </figure>
-        <h1 class="text-3xl font-semibold title-google">Christian Felipe</h1>
-        <p class="text-lg subtitle-google">Desenvolvedor</p>
-        <div class="flex flex-col space-y-3">
-            <a href="fundamentos.html" class="button-google button-portfolio">
-                <span class="mr-2">
-                    <i class="fas fa-file-alt"></i>
-                </span>
-                <span>Currículo</span>
-            </a>
-            <a href="https://www.instagram.com/christian.felipesf/" target="_blank" class="button-google">
-                <span class="mr-2">
-                    <i class="fab fa-instagram"></i>
-                </span>
-                <span>Instagram</span>
-            </a>
-            <a href="https://github.com/christianfelipesf" target="_blank" class="button-google">
-                <span class="mr-2">
-                    <i class="fab fa-github"></i>
-                </span>
-                <span>GitHub</span>
-            </a>
-            <a href="mailto:christian.felipe18@gmail.com" target="_blank" class="button-google">
-                <span class="mr-2">
-                    <i class="fas fa-envelope"></i>
-                </span>
-                <span>Email</span>
-            </a>
-            <a href="https://wa.me/5598989138217" target="_blank" class="button-google">
-                <span class="mr-2">
-                    <i class="fab fa-whatsapp"></i>
-                </span>
-                <span>WhatsApp</span>
-            </a>
+    <header class="navbar-google no-pdf">
+        <div class="nav-inner">
+            <a class="nav-brand" href="#/inicio">Christian Felipe</a>
+            <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-links" id="main-nav" aria-label="Navegação principal">
+                <a class="nav-link" data-nav="inicio" href="#/inicio">Início</a>
+                <a class="nav-link" data-nav="sobre" href="#/sobre">Sobre</a>
+                <a class="nav-link" data-nav="curriculo" href="#/curriculo">Currículo</a>
+                <a class="nav-link" data-nav="projetos" href="#/projetos">Projetos</a>
+                <a class="nav-link" data-nav="contato" href="#/contato">Contato</a>
+            </nav>
         </div>
+    </header>
 
-        <div class="book-section-google">
-            <h2 class="text-xl font-semibold title-google mb-4">Meu Livro: Água Infinita</h2>
-            <a href="https://a.co/d/eKLy48j" target="_blank" class="button-google">
-                <span class="mr-2">
-                    <i class="fas fa-book"></i>
-                </span>
-                <span>Comprar Água Infinita</span>
-            </a>
-        </div>
-    </div>
+    <main class="flex flex-col items-center w-full p-5" style="max-width: 860px;">
 
+        <!-- INICIO -->
+        <section class="view w-full" id="view-inicio" data-route="inicio" aria-label="Início">
+            <div class="section-container">
+                <figure class="w-32 h-32 mx-auto mb-6">
+                    <img src="perfil2.jpg" alt="Foto de Christian Felipe" class="rounded-full profile-img" width="128" height="128">
+                </figure>
+                <h1 class="text-3xl font-semibold" style="color:#202124;">Christian Felipe</h1>
+                <p class="text-lg" style="color:#5f6368; margin-bottom: 24px;">Desenvolvedor</p>
+                <div class="flex flex-col" style="gap: 12px;">
+                    <a href="#/curriculo" class="btn-google btn-blue btn-block"><i class="fas fa-file-alt"></i> Currículo</a>
+                    <a href="https://github.com/christianfelipesf" target="_blank" rel="noopener" class="btn-google btn-block"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://www.instagram.com/christian.felipesf/" target="_blank" rel="noopener" class="btn-google btn-block"><i class="fab fa-instagram"></i> Instagram</a>
+                    <a href="mailto:christian.felipe18@gmail.com" class="btn-google btn-block"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="https://wa.me/5598989138217" target="_blank" rel="noopener" class="btn-google btn-block"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                </div>
+                <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #e0e0e0;">
+                    <h2 class="text-xl font-semibold" style="color:#202124; margin-bottom: 16px;">Meu Livro: Água Infinita</h2>
+                    <a href="https://a.co/d/eKLy48j" target="_blank" rel="noopener" class="btn-google btn-block"><i class="fas fa-book"></i> Comprar Água Infinita</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOBRE -->
+        <section class="view w-full" id="view-sobre" data-route="sobre" aria-label="Sobre" hidden>
+            <div class="section-container">
+                <h2 class="section-title">Sobre Mim</h2>
+                <p class="section-paragraph">Olá! Eu sou Christian Felipe, um apaixonado por tecnologia e educação. Especialista em unir tecnologia e educação para criar soluções digitais interativas — websites, jogos e experiências com IA — com foco em inovação e desenvolvimento ágil.</p>
+                <ul class="skill-list">
+                    <li><i class="fas fa-code"></i> Sites e bots automatizados</li>
+                    <li><i class="fas fa-gamepad"></i> Jogos em 2D e 3D</li>
+                    <li><i class="fas fa-cube"></i> Design 3D e arquitetura fotorealista</li>
+                    <li><i class="fab fa-python"></i> Python &amp; IA</li>
+                    <li><i class="fas fa-laptop-code"></i> Dev de websites</li>
+                    <li><i class="fas fa-users"></i> Proatividade &amp; pontualidade</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CURRICULO (única fonte do PDF) -->
+        <section class="view w-full" id="view-curriculo" data-route="curriculo" aria-label="Currículo" hidden>
+            <div id="cv-content" class="w-full flex flex-col items-center">
+                <div class="section-container">
+                    <div class="flex flex-col md:flex-row items-center" style="gap: 24px;">
+                        <img src="perfil2.jpg" alt="Foto de Christian Felipe" class="rounded-full" width="160" height="160" style="object-fit: cover; border: 4px solid #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                        <div style="text-align: center;">
+                            <h2 class="text-4xl font-bold" style="color:#202124;">Christian Felipe</h2>
+                            <p style="color:#5f6368; font-weight: 500;">Brasileiro | <span id="idade">25</span> anos</p>
+                            <p class="text-xl font-bold" style="color:#1a73e8; margin-top: 8px;">Desenvolvedor</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-container" style="text-align: left;">
+                    <h2 class="section-title section-title-accent">Sobre Mim</h2>
+                    <p class="section-paragraph">Especialista em unir tecnologia e educação para criar soluções digitais interativas. Desenvolvedor de websites e jogos desde 2020, focado em inovação, inteligência artificial e excelência no desenvolvimento ágil.</p>
+                </div>
+
+                <div class="section-container" style="text-align: left;">
+                    <h2 class="section-title section-title-accent">Experiências</h2>
+                    <div class="exp-item">
+                        <h3 class="font-bold text-xl">Atendente de Loja na Maxx Internet</h3>
+                        <p class="font-semibold" style="color:#1a73e8;">2025 - Atual</p>
+                    </div>
+                    <div class="exp-item">
+                        <h3 class="font-bold text-xl">Análise e Desenvolvimento de Sistemas</h3>
+                        <p class="font-semibold" style="color:#1a73e8;">Cursando</p>
+                    </div>
+                    <div class="exp-item">
+                        <h3 class="font-bold text-xl">Criador de Web Sites e Jogos</h3>
+                        <p class="font-semibold" style="color:#1a73e8;">Desde 2020</p>
+                    </div>
+                </div>
+
+                <div class="section-container" style="text-align: left;">
+                    <h2 class="section-title section-title-accent">Competências</h2>
+                    <ul class="skill-list">
+                        <li><i class="fas fa-check-circle"></i> Word, Excel, Banco de Dados</li>
+                        <li><i class="fab fa-python"></i> Python &amp; IA</li>
+                        <li><i class="fas fa-code"></i> Tecnologias Recentes</li>
+                        <li><i class="fas fa-sync"></i> Atualização Contínua</li>
+                        <li><i class="fas fa-laptop-code"></i> Dev de Websites</li>
+                        <li><i class="fas fa-users"></i> Proatividade &amp; Pontualidade</li>
+                    </ul>
+                </div>
+
+                <div class="section-container" style="text-align: left;">
+                    <h2 class="section-title section-title-accent">Contato</h2>
+                    <p><i class="fas fa-phone" style="color:#1a73e8; width: 24px;"></i> (98) 98913-8217</p>
+                    <p><i class="fas fa-envelope" style="color:#ea4335; width: 24px;"></i> christian.felipe18@gmail.com</p>
+                    <p><i class="fas fa-map-marker-alt" style="color:#5f6368; width: 24px;"></i> Rua Santa Bárbara n 34, Santa Rita - MA</p>
+                    <p><i class="fab fa-linkedin" style="color:#0a66c2; width: 24px;"></i> /in/christian-felipe-96b621293</p>
+                </div>
+            </div>
+
+            <div class="no-pdf w-full flex flex-col" style="gap: 12px; padding-bottom: 20px;">
+                <a href="https://wa.me/5598989138217" target="_blank" rel="noopener" class="btn-google btn-green btn-block" style="padding: 18px;"><i class="fab fa-whatsapp"></i> Entrar em contato WhatsApp</a>
+                <button type="button" onclick="gerarPDF()" class="btn-google btn-blue btn-block" style="padding: 18px;"><i class="fas fa-file-pdf"></i> Baixar Currículo em PDF</button>
+            </div>
+        </section>
+
+        <!-- PROJETOS -->
+        <section class="view w-full" id="view-projetos" data-route="projetos" aria-label="Projetos" hidden>
+            <div class="section-container" style="max-width: 860px;">
+                <h2 class="section-title">Meus Projetos</h2>
+                <p class="section-paragraph">Seleção atualizada direto do meu GitHub — jogos, web e IA.</p>
+                <div class="project-grid">
+                    <article class="card-project">
+                        <div class="card-icon"><i class="fas fa-industry"></i></div>
+                        <p class="card-tag">Game · Godot</p>
+                        <h3 class="card-title">Factolyth</h3>
+                        <p class="card-text">Jogo de fábrica em desenvolvimento com Godot, jogável no navegador.</p>
+                        <div class="card-actions">
+                            <a href="https://factolyth.vercel.app" target="_blank" rel="noopener" class="btn-google btn-blue"><i class="fas fa-play"></i> Jogar</a>
+                            <a href="https://github.com/christianfelipesf/Factolyth" target="_blank" rel="noopener" class="btn-google"><i class="fab fa-github"></i> Código</a>
+                        </div>
+                    </article>
+                    <article class="card-project">
+                        <div class="card-icon"><i class="fas fa-note-sticky"></i></div>
+                        <p class="card-tag">Web · JavaScript</p>
+                        <h3 class="card-title">Notepad Windows 11 Web</h3>
+                        <p class="card-text">Bloco de notas com o visual do Windows 11, direto no navegador.</p>
+                        <div class="card-actions">
+                            <a href="https://github.com/christianfelipesf/NOtepad-Windows-11-WEB" target="_blank" rel="noopener" class="btn-google"><i class="fab fa-github"></i> Ver no GitHub</a>
+                        </div>
+                    </article>
+                    <article class="card-project">
+                        <div class="card-icon"><i class="fas fa-robot"></i></div>
+                        <p class="card-tag">IA · WhatsApp</p>
+                        <h3 class="card-title">Ollama WA Humanity Bot</h3>
+                        <p class="card-text">Bot de WhatsApp com Ollama para conversas com comportamento humano.</p>
+                        <div class="card-actions">
+                            <a href="https://github.com/christianfelipesf/Ollama-WA-Humanity-BOT" target="_blank" rel="noopener" class="btn-google"><i class="fab fa-github"></i> Ver no GitHub</a>
+                        </div>
+                    </article>
+                    <article class="card-project">
+                        <div class="card-icon"><i class="fas fa-language"></i></div>
+                        <p class="card-tag">IA · Python</p>
+                        <h3 class="card-title">YouTube Auto Dubbing</h3>
+                        <p class="card-text">Dublagem automática de vídeos do YouTube usando Chatterbox.</p>
+                        <div class="card-actions">
+                            <a href="https://github.com/christianfelipesf/YAB-YOUTUBE-AUTO-DUBBING" target="_blank" rel="noopener" class="btn-google"><i class="fab fa-github"></i> Ver no GitHub</a>
+                        </div>
+                    </article>
+                    <article class="card-project">
+                        <div class="card-icon"><i class="fas fa-floppy-disk"></i></div>
+                        <p class="card-tag">Software · Python</p>
+                        <h3 class="card-title">Game Auto Backup</h3>
+                        <p class="card-text">Backup automático de savegames offline — progresso sempre seguro.</p>
+                        <div class="card-actions">
+                            <a href="https://github.com/christianfelipesf/Game-Auto-Backup" target="_blank" rel="noopener" class="btn-google"><i class="fab fa-github"></i> Ver no GitHub</a>
+                        </div>
+                    </article>
+                </div>
+                <p class="section-paragraph" style="margin-top: 24px;">Quer ver tudo? <a href="https://github.com/christianfelipesf?tab=repositories" target="_blank" rel="noopener" style="color:#1a73e8;">Todos os repositórios no GitHub</a></p>
+            </div>
+        </section>
+
+        <!-- CONTATO -->
+        <section class="view w-full" id="view-contato" data-route="contato" aria-label="Contato" hidden>
+            <div class="section-container" style="text-align: left;">
+                <h2 class="section-title" style="display: block; text-align: center;">Contato</h2>
+                <div class="contact-row"><i class="fas fa-phone" style="color:#1a73e8;"></i><span><strong>Telefone:</strong> <a href="tel:+559889138217">98 8913-8217</a></span></div>
+                <div class="contact-row"><i class="fab fa-whatsapp" style="color:#25D366;"></i><span><strong>WhatsApp:</strong> <a href="https://wa.me/5598989138217" target="_blank" rel="noopener">Conversar no WhatsApp</a></span></div>
+                <div class="contact-row"><i class="fas fa-envelope" style="color:#ea4335;"></i><span><strong>Email:</strong> <a href="mailto:christian.felipe18@gmail.com">christian.felipe18@gmail.com</a></span></div>
+                <div class="contact-row"><i class="fab fa-instagram" style="color:#c13584;"></i><span><strong>Instagram:</strong> <a href="https://www.instagram.com/christian.felipesf/" target="_blank" rel="noopener">Ir para o Instagram</a></span></div>
+                <div class="contact-row"><i class="fab fa-github" style="color:#333;"></i><span><strong>GitHub:</strong> <a href="https://github.com/christianfelipesf" target="_blank" rel="noopener">christianfelipesf</a></span></div>
+                <div class="contact-row"><i class="fas fa-map-marker-alt" style="color:#5f6368;"></i><span><strong>Localização:</strong> Santa Rita (MA)</span></div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer-google no-pdf">
+        <p>&copy; <span id="ano-atual">2026</span> Christian Felipe. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Roteador por hash: uma pagina, varias secoes, com loading de transicao.
+        (function () {
+            var routes = ['inicio', 'sobre', 'curriculo', 'projetos', 'contato'];
+            var current = null;
+
+            function routeFromHash() {
+                var h = window.location.hash.replace(/^#\/?/, '').split('?')[0];
+                return routes.indexOf(h) !== -1 ? h : 'inicio';
+            }
+
+            var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            function activate(route) {
+                routes.forEach(function (r) {
+                    var el = document.getElementById('view-' + r);
+                    if (el) el.hidden = (r !== route);
+                });
+                // Reanima a secao ativa a cada troca (sem movimento se o usuario prefere reduzido).
+                var active = document.getElementById('view-' + route);
+                if (active && active.classList && !reduceMotion) {
+                    active.classList.remove('view-enter');
+                    void active.offsetWidth;
+                    active.classList.add('view-enter');
+                }
+                document.querySelectorAll('[data-nav]').forEach(function (a) {
+                    a.classList.toggle('active', a.getAttribute('data-nav') === route);
+                });
+                current = route;
+                window.scrollTo(0, 0);
+                var nav = document.getElementById('main-nav');
+                var btn = document.getElementById('menu-btn');
+                if (nav && nav.classList.contains('is-active')) {
+                    nav.classList.remove('is-active');
+                    if (btn) btn.setAttribute('aria-expanded', 'false');
+                }
+            }
+
+            // Troca imediata de secao: o loading aparece so no carregamento da pagina.
+            function navigate(route) {
+                if (route === current) {
+                    window.scrollTo(0, 0);
+                    return;
+                }
+                activate(route);
+            }
+
+            window.addEventListener('hashchange', function () {
+                var r = routeFromHash();
+                if (r !== current) navigate(r);
+            });
+
+            // Secao inicial imediata (sem transicao); o overlay sai no load.
+            activate(routeFromHash());
+
+            // Menu mobile acessivel.
+            var menuBtn = document.getElementById('menu-btn');
+            if (menuBtn) {
+                menuBtn.addEventListener('click', function () {
+                    var nav = document.getElementById('main-nav');
+                    var open = nav.classList.toggle('is-active');
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                });
+            }
+
+            // Idade e ano automaticos (nascimento em 2001).
+            var thisYear = new Date().getFullYear();
+            var ageEl = document.getElementById('idade');
+            if (ageEl) ageEl.textContent = String(thisYear - 2001);
+            var yearEl = document.getElementById('ano-atual');
+            if (yearEl) yearEl.textContent = String(thisYear);
+        })();
+
+        // PDF: gera APENAS a secao curriculo (#cv-content) em UMA pagina A4,
+        // mesmo vindo de outra secao. Se a biblioteca falhar, cai para impressao.
+        function gerarPDF() {
+            var prev = null;
+            var active = document.querySelector('.view:not([hidden])');
+            if (active) prev = active.getAttribute('data-route');
+            var cvView = document.getElementById('view-curriculo');
+            if (cvView) cvView.hidden = false;
+
+            document.body.classList.add('pdf-mode');
+            var element = document.getElementById('cv-content');
+
+            function restore() {
+                document.body.classList.remove('pdf-mode');
+                if (prev && prev !== 'curriculo') {
+                    if (cvView) cvView.hidden = true;
+                    document.querySelectorAll('.view').forEach(function (v) {
+                        v.hidden = (v.getAttribute('data-route') !== prev);
+                    });
+                }
+            }
+
+            function printFallback() {
+                if (cvView) cvView.hidden = false;
+                document.body.classList.add('pdf-mode');
+                var done = false;
+                function cleanup() {
+                    if (!done) { done = true; restore(); }
+                }
+                window.addEventListener('afterprint', cleanup, { once: true });
+                window.print();
+                window.setTimeout(cleanup, 1500);
+            }
+
+            try {
+                if (typeof html2canvas === 'undefined' || !window.jspdf) {
+                    printFallback();
+                    return;
+                }
+                html2canvas(element, { scale: 2, useCORS: true, scrollY: 0, backgroundColor: '#ffffff' }).then(function (canvas) {
+                    try {
+                        var pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
+                        var pageW = 210, pageH = 297;
+                        var imgW = pageW;
+                        var imgH = canvas.height * pageW / canvas.width;
+                        if (imgH > pageH) {
+                            var k = pageH / imgH;
+                            imgW = imgW * k;
+                            imgH = pageH;
+                        }
+                        var x = (pageW - imgW) / 2;
+                        pdf.addImage(canvas.toDataURL('image/jpeg', 0.98), 'JPEG', x, 0, imgW, imgH);
+                        pdf.save('Curriculo_Christian_Felipe.pdf');
+                    } catch (err) {
+                        console.error(err);
+                        printFallback();
+                        return;
+                    }
+                    restore();
+                }).catch(function (err) {
+                    console.error(err);
+                    printFallback();
+                });
+            } catch (err) {
+                console.error(err);
+                printFallback();
+            }
+        }
+    </script>
 </body>
 </html>
